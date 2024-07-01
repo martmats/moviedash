@@ -67,7 +67,7 @@ local_css("style.css")
 logo_path = "logo_moviedash.png"
 
 # Load the logo image
-logo_image = st.sidebar.image(logo_path, width=200)  # Adjust width and height as needed
+logo_image = st.sidebar.image(logo_path, width=350)  # Adjust width and height as needed
 
 
 # Sidebar Menu Initialisation
