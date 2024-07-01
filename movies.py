@@ -524,26 +524,40 @@ elif st.session_state.menu == "Interesting facts":
     
 # GRAPHIC 2: Genre Popularity
     
-    # Genre Popularity: Bar chart illustrating the number of films in each genre
-    st.subheader("Genre Popularity")
-    st.write("Discover the most popular genres of films.")
+    # Filter data from 2010 onwards
+    movies_df['release_date'] = pd.to_datetime(movies_df['release_date'])
+    movies_df = movies_df[movies_df['release_date'].dt.year >= 2010]
 
-    # Ensure 'genres' is in list format
-    movies_df['genres'] = movies_df['genres'].apply(lambda x: x.split(',') if isinstance(x, str) else x)
+    # Extract year from release_date
+    movies_df['year'] = movies_df['release_date'].dt.year
 
-    # Explode genres to separate rows
-    movies_df = movies_df.explode('genres')
+    # Ensure 'providers' is in list format
+    movies_df['providers'] = movies_df['providers'].apply(lambda x: x.split(',') if isinstance(x, str) else x)
 
-    # Group by genre and count number of films
-    films_per_genre = movies_df['genres'].value_counts().reset_index()
-    films_per_genre.columns = ['genre', 'count']
+    # Explode providers to separate rows
+    movies_df = movies_df.explode('providers')
 
-    # Create the bar chart
-    fig_bar = px.bar(films_per_genre, x='genre', y='count', title='Number of Films in Each Genre',
-                     labels={'genre': 'Genre', 'count': 'Number of Films'})
+    # Displaying the UI components
+    st.subheader("Number of Films Released Each Year by Provider")
+
+    # Multiselect widget for selecting providers
+    selected_providers = st.multiselect(
+        "Select Providers",
+        ['Amazon Prime Video', 'Netflix', 'Disney Plus', 'Now TV Cinema', 'Paramount Plus', 'Sky Go'],
+        default=['Amazon Prime Video', 'Netflix', 'Disney Plus']
+    )
+
+    # Filter the data based on selected providers
+    films_per_year_provider = movies_df.groupby(['year', 'providers']).size().reset_index(name='count')
+    films_per_year_provider = films_per_year_provider[films_per_year_provider['providers'].isin(selected_providers)]
+
+    # Create the line chart
+    fig = px.line(films_per_year_provider, x='year', y='count', color='providers', 
+                title='Number of Films Released Each Year by Provider',
+                labels={'year': 'Year', 'count': 'Number of Films', 'providers': 'Provider'})
 
     # Display the chart
-    st.plotly_chart(fig_bar)
+    st.plotly_chart(fig)
     
 # GRAPHIC 3: Genre Popularity per Year   
 
