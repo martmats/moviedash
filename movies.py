@@ -261,8 +261,6 @@ if st.session_state.menu == "Trendy Films":
     </div>
     """, unsafe_allow_html=True)
 
-
-
     
 # Interesting Facts section
 
@@ -341,6 +339,7 @@ if st.session_state.menu == "Trendy Films":
 
 
 #STREAMING OPTION SECTION------------------------------------------------------------------------------------------------------------------------
+
 # "Streaming Options" section
 elif st.session_state.menu == "Streaming Options":
     st.title("Find Your Perfect Film 🎬")
@@ -349,6 +348,8 @@ elif st.session_state.menu == "Streaming Options":
     col1, col2 = st.columns([1, 3])
 
     with col1:
+        # Search filter
+        search_query = st.text_input("🔍 Search for a film", value="")
 
         # Filter options
         selected_providers = st.multiselect(
@@ -382,12 +383,18 @@ elif st.session_state.menu == "Streaming Options":
         )
 
     with col2:
-        # Filter the dataframe based on user selections
-        filtered_movies_df = movies_df[
-            movies_df['providers'].apply(lambda x: any(provider in x for provider in selected_providers)) &
-            movies_df['genres'].apply(lambda x: any(genre in x for genre in selected_genres)) &
-            movies_df['year'].between(year_filter[0], year_filter[1]) &
-            movies_df['vote_count'].between(popularity_range[0], popularity_range[1])
+        # Filter the dataframe based on the search query
+        if search_query:
+            filtered_movies_df = movies_df[movies_df['title'].str.contains(search_query, case=False, na=False)]
+        else:
+            filtered_movies_df = movies_df.copy()
+
+        # Further filter the dataframe based on other user selections
+        filtered_movies_df = filtered_movies_df[
+            filtered_movies_df['providers'].apply(lambda x: any(provider in x for provider in selected_providers)) &
+            filtered_movies_df['genres'].apply(lambda x: any(genre in x for genre in selected_genres)) &
+            filtered_movies_df['year'].between(year_filter[0], year_filter[1]) &
+            filtered_movies_df['vote_count'].between(popularity_range[0], popularity_range[1])
         ]
 
         # Display the filtered films in a grid layout
@@ -413,9 +420,9 @@ elif st.session_state.menu == "Streaming Options":
                                 <p>{film['overview']}</p>
                             </details>
                         </div>
-                                                </div>
                     </div>
                     """, unsafe_allow_html=True)
+
 #-------------------------------------------------------------------------------   
 # Create some graphs about providers
     col1, col2 = st.columns(2)
