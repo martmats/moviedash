@@ -27,23 +27,23 @@ MovieDash is a Streamlit web application designed to help you discover the lates
    cd MovieDash
     Install the required dependencies:
 
-sh
-Copy code
-pip install -r requirements.txt
-Set up your PostgreSQL database and add the connection details to Streamlit secrets:
+   ```sh
+   Copy code
+   pip install -r requirements.txt
+   Set up your PostgreSQL database and add the connection details to Streamlit secrets:
 
-sh
-Copy code
-streamlit secrets set DB_USERNAME your_db_username
-streamlit secrets set DB_PASSWORD your_db_password
-streamlit secrets set DB_HOST your_db_host
-streamlit secrets set DB_PORT your_db_port
-streamlit secrets set DB_NAME your_db_name
-Run the Streamlit app:
+   ```sh
+   Copy code
+   streamlit secrets set DB_USERNAME your_db_username
+   streamlit secrets set DB_PASSWORD your_db_password
+   streamlit secrets set DB_HOST your_db_host
+   streamlit secrets set DB_PORT your_db_port
+   streamlit secrets set DB_NAME your_db_name
+   Run the Streamlit app:
 
-sh
-Copy code
-streamlit run app.py
+   ```sh
+   Copy code
+   streamlit run app.py
 
 ## 📖 Usage
 
