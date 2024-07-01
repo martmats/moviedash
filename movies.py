@@ -61,26 +61,7 @@ local_css("style.css")
 #---------SIDEBAR CONTENT-----------------------------------------------------------------
 
 # add logo add_logo("https://thesteptorial.com/wp-content/uploads/2024/07/logo-moviedash.png")
-# Sidebar Logo
-def display_sidebar_image():
-  """Displays an image at the top of the sidebar."""
 
-  html_string = f"""
-  <style>
-    .stSidebarNav {{
-      background-image: url("https://raw.githubusercontent.com/martmats/moviedash/main/logo_moviedash.png");
-      background-size: contain; /* Adjust as needed */
-      background-repeat: no-repeat;
-      background-position: top center; /* Adjust as needed */
-      padding-top: 20px; /* Add some space below the image */
-    }}
-  </style>
-  """
-
-  st.sidebar.markdown(html_string, unsafe_allow_html=True)
-
-# Call the function to display the image
-display_sidebar_image()
 
 # Sidebar Menu Initialisation
 st.sidebar.markdown('<h2>Discover Your Movie</h2>', unsafe_allow_html=True)
