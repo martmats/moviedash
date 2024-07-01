@@ -62,11 +62,12 @@ local_css("style.css")
 
 # add logo add_logo("https://thesteptorial.com/wp-content/uploads/2024/07/logo-moviedash.png")
 # Sidebar Logo
-# URL of the logo
-logo_url = "https://thesteptorial.com/wp-content/uploads/2024/07/logo_moviedash.png"
+# Load the image
+image_path = "https://github.com/martmats/moviedash/blob/main/logo_moviedash.png"
+image = Image.open(image_path)
 
-# Display the logo in the sidebar
-st.sidebar.image(logo_url, use_column_width=True)
+# Display the image in the sidebar
+st.sidebar.image(image, use_column_width=True)
 
 # Sidebar Menu Initialisation
 st.sidebar.markdown('<h2>Discover Your Movie</h2>', unsafe_allow_html=True)
