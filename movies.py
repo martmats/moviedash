@@ -62,7 +62,14 @@ local_css("style.css")
 
 # add logo add_logo("https://thesteptorial.com/wp-content/uploads/2024/07/logo-moviedash.png")
 # Sidebar Logo
+def add_logo(logo_path, width, height):
+    """Read and return a resized logo"""
+    logo = Image.open(logo_path)
+    modified_logo = logo.resize((width, height))
+    return modified_logo
 
+my_logo = add_logo(logo_path="your/logo/path", width=50, height=60)
+st.sidebar.image(my_logo)
 st.sidebar.image(add_logo(logo_path="https://thesteptorial.com/wp-content/uploads/2024/07/logo-moviedash.png", width=150, height=60)) 
 
 
