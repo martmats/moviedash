@@ -60,14 +60,10 @@ local_css("style.css")
 
 #---------SIDEBAR CONTENT-----------------------------------------------------------------
 
-# add logo add_logo("https://thesteptorial.com/wp-content/uploads/2024/07/logo-moviedash.png")
-# Sidebar Logo
-# add logo add_logo("https://thesteptorial.com/wp-content/uploads/2024/07/logo-moviedash.png")
 # Sidebar Logo
 logo_path = "logo_moviedash.png"
-
 # Load the logo image
-logo_image = st.sidebar.image(logo_path, width=350)  # Adjust width and height as needed
+logo_image = st.sidebar.image(logo_path, width=300)  # Adjust width and height as needed
 
 
 # Sidebar Menu Initialisation
