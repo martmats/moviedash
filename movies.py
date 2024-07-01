@@ -62,26 +62,17 @@ local_css("style.css")
 
 # add logo add_logo("https://thesteptorial.com/wp-content/uploads/2024/07/logo-moviedash.png")
 # Sidebar Logo
-def add_logo():
-    st.markdown(
-        """
-        <style>
-            [data-testid="stSidebarNav"] {
-                background-image: url(https://thesteptorial.com/wp-content/uploads/2024/07/logo-moviedash.png);
-                background-repeat: no-repeat;
-                padding-top: 120px;
-                background-position: 20px 20px;
-            }
-            [data-testid="stSidebarNav"]::before {
-                content: "My Company Name";
-                margin-left: 20px;
-                margin-top: 20px;
-                font-size: 30px;
-                position: relative;
-                top: 100px;
-            }
-        </style>
-        """,
+st.markdown(
+        f"""
+            <style>
+                [data-testid="stSidebar"] {{
+                    background-image: url(https://thesteptorial.com/wp-content/uploads/2024/07/logo-moviedash.png/120/120);
+                    background-repeat: no-repeat;
+                    padding-top: 80px;
+                    background-position: 20px 20px;
+                }}
+            </style>
+            """,
         unsafe_allow_html=True,
     )
 
