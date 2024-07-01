@@ -216,15 +216,15 @@ def display_films_in_rows(films, card_class="movie-card-small"):
 if st.session_state.menu == "Trendy Films":
     st.markdown("""
     <div class="hero-section">
-        <h1>Welcome to MovieDash 🎬</h1>
+        <h1>Welcome to MovieDash</h1>
         <p>Welcome to MovieDash, your ultimate source for the latest and greatest films!</br> Grab your popcorn and dive into today's hot picks!</p>
     </div>
     """, unsafe_allow_html=True)
 
-# Today's Hot Pick Section
+# Today's Hot Pick Section 
 
-    st.header("Today's Popping Hot Picks")
-    st.write("Discover the top movies released today, freshly popped just for you! 🍿")
+    st.header("Today's Popping Hot Picks 🍿")
+    st.write("Discover the top movies released today, freshly popped just for you!")
     st.markdown('<div class="movies-container">', unsafe_allow_html=True)
 
     trendy_films_today = get_trendy_films_today()
