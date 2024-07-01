@@ -496,33 +496,6 @@ elif st.session_state.menu == "Interesting facts":
     
 # GRAPHIC 1: Number of films released each year from 2010 to the present
 
-    # Filter data from 2010 onwards
-    movies_df = movies_df[movies_df['release_date'].dt.year >= 2010]
-
-    # Extract year from release_date
-    movies_df['year'] = movies_df['release_date'].dt.year
-
-    # Ensure 'providers' is in list format
-    movies_df['providers'] = movies_df['providers'].apply(lambda x: x.split(',') if isinstance(x, str) else x)
-
-    # Explode providers to separate rows
-    movies_df = movies_df.explode('providers')
- 
-    # Group by year and provider and count number of films
-    films_per_year_provider = movies_df.groupby(['year', 'providers']).size().reset_index(name='count')
-
-    # Filter to include only the specified providers
-    selected_providers = ['Amazon Prime Video', 'Netflix', 'Disney Plus', 'Now TV Cinema', 'Paramount Plus', 'Sky Go']
-    films_per_year_provider = films_per_year_provider[films_per_year_provider['providers'].isin(selected_providers)]
-
-    # Create the line chart
-    fig = px.line(films_per_year_provider, x='year', y='count', color='providers', title='Number of Films Released Each Year by Provider',
-                labels={'year': 'Year', 'count': 'Number of Films', 'providers': 'Provider'})
-
-    # Display the chart
-    st.plotly_chart(fig)
-    
-# GRAPHIC 2: Genre Popularity
     
     # Filter data from 2010 onwards
     movies_df['release_date'] = pd.to_datetime(movies_df['release_date'])
@@ -559,7 +532,7 @@ elif st.session_state.menu == "Interesting facts":
     # Display the chart
     st.plotly_chart(fig)
     
-# GRAPHIC 3: Genre Popularity per Year   
+# GRAPHIC 2: Genre Popularity per Year   
 
     # Genre Popularity per Year: Bar chart illustrating the number of films in each genre per year
     st.write("Genre Popularity per Year: Discover the popularity of different genres of films over the years.")
@@ -580,7 +553,7 @@ elif st.session_state.menu == "Interesting facts":
     # Display the chart
     st.plotly_chart(fig_bar)
     
-# GRAPHIC 4: Popular Film per Year
+# GRAPHIC 3: Popular Film per Year
   
     # Most Popular Film of Each Year
     st.subheader("Most Popular Film of Each Year")
@@ -609,7 +582,7 @@ elif st.session_state.menu == "Interesting facts":
             """, unsafe_allow_html=True)
     
 
-# GRAPHIC 5: Release Rate, Season and Genre with Filter Option
+# GRAPHIC 4: Release Rate, Season and Genre with Filter Option
 
     # Extract month and year from release_date
     movies_df['release_month'] = movies_df['release_date'].dt.month
