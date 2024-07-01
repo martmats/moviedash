@@ -64,18 +64,20 @@ local_css("style.css")
 # Sidebar Logo
 def display_sidebar_image():
   """Displays an image at the top of the sidebar."""
+
   html_string = f"""
   <style>
-    .stSidebarNav {
+    .stSidebarNav {{
       background-image: url("https://raw.githubusercontent.com/martmats/moviedash/main/logo_moviedash.png");
-      background-size: contain;  /* Adjust as needed */
+      background-size: contain; /* Adjust as needed */
       background-repeat: no-repeat;
-      background-position: top center;  /* Adjust as needed */
-      padding-top: 20px;  /* Add some space below the image */
-    }
+      background-position: top center; /* Adjust as needed */
+      padding-top: 20px; /* Add some space below the image */
+    }}
   </style>
-  """, unsafe_allow_html=True
-  st.sidebar.markdown(html_string)
+  """
+
+  st.sidebar.markdown(html_string, unsafe_allow_html=True)
 
 # Call the function to display the image
 display_sidebar_image()
