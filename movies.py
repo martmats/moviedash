@@ -62,14 +62,7 @@ local_css("style.css")
 
 # add logo add_logo("https://thesteptorial.com/wp-content/uploads/2024/07/logo-moviedash.png")
 # Sidebar Logo
-logo_path = "logo_moviedash.png"
-logo_image = Image.open(logo_path)
-
-# Resize the image to the desired size (for example, 100x100 pixels)
-resized_logo_image = logo_image.resize((500, 292))
-
-# Insert the resized logo into the Streamlit app
-st.logo(resized_logo_image)
+st.markdown("![](https://thesteptorial.com/wp-content/uploads/2024/07/logo-moviedash.png)", unsafe_allow_html=True)
 
 # Sidebar Menu Initialisation
 st.sidebar.markdown('<h2>Discover Your Movie</h2>', unsafe_allow_html=True)
