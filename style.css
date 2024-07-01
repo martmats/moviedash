@@ -1,0 +1,158 @@
+
+.sidebar .css-1d391kg a {
+    color: #4B9DFF; /* Change this to your desired text color */
+}
+
+.sidebar .sidebar-content {
+    background: #6eb0ff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-menu {
+    padding: 0 20px;
+}
+
+.sidebar-menu h2 {
+    margin-bottom: 20px;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+}
+
+.sidebar-menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-menu ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+/* Separator line in sidebar */
+.sidebar-separator {
+    border: none;
+    height: 1px;
+    background: #ccc;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Container expansion */
+.css-1d391kg {    
+    max-width: 100%;
+    padding: 0 10px;
+}
+
+.sidebar-menu .menu-item {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: white;
+    text-align: center;
+}
+/* Container expansion */
+.css-1d391kg {    
+    max-width: 100%;
+    padding: 0 10px;
+}
+
+/* Existing styles for movies container and cards */
+.movies-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.movie-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Adjusted to fit within column */
+    max-width: 300px;
+    overflow: hidden;
+}
+
+.movie-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.movie-card-small {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin: 5px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Adjusted to fit within column */
+    max-width: 200px;
+    overflow: hidden;
+}
+
+.movie-card-small img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.movie-info {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.movie-info h4 {
+    margin: 10px 0 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.movie-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.movie-info .rating {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #FF3131;
+    color: white;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+.hero-section {
+    background-color: #4B9DFF;
+    padding: 50px 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.hero-section h1 {
+    color: white;
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    color: white;
+    font-size: 1.5em;
+}
