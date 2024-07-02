@@ -8,9 +8,6 @@ from PIL import Image
 
 #---------------LOAD DATA FROM THE DATABASE-----------------------------
 
-# Set page configuration to use wide layout
-st.set_page_config(layout="wide")
-
 # Load environment variables from Streamlit secrets
 db_username = st.secrets["DB_USERNAME"]
 db_password = st.secrets["DB_PASSWORD"]
@@ -58,8 +55,7 @@ def local_css(file_name):
 local_css("style.css")
 
 
-
-#------------FUNCTIONS FOR TRENDY SECTION--------------------------------------------
+#------------FUNCTIONS FOR EACH PAGE--------------------------------------------
 
 # Get the HotPick for Today
 def get_trendy_films_today():
@@ -162,6 +158,12 @@ def display_films_in_rows(films, card_class="movie-card-small"):
                 </div>
             </div>
             """, unsafe_allow_html=True)
+
+
+#---------PAGE CONFIGURATION--------------------------------------------------------------
+# Set page configuration to use wide layout
+st.set_page_config(layout="wide")
+
 
 #---------SIDEBAR CONTENT-----------------------------------------------------------------
 # Sidebar Colour
