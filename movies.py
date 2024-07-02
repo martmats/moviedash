@@ -202,7 +202,7 @@ st.session_state.menu = [key for key, value in menu_options.items() if value == 
 # Sidebar footer
 st.sidebar.markdown('''
 ---
-Created with ❤️ by [Marta Matias](https://digitalfutures.com).<br>
+Created with ❤️ by [Marta Matias](https://digitalfutures.com).</br>
 Data provided by Justwatch and TMDB
 ''')
 
