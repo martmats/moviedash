@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 from PIL import Image
 import math
 
-#---------PAGE CONFIGURATION--------------------------------------------------------------
+#---------PAGE CONFIGURATION HAS TO BE AT THE BEGINNING--------------------------------------------------------------
 # Set page configuration to use wide layout
 st.set_page_config(layout="wide")
 
@@ -80,8 +80,11 @@ def format_release_date(date_string):
     return date_string[:10] if date_string else "N/A"
 
 
-# Current Year
+# Current Year for the Section Best films per Year
 current_year = datetime.now().year
+
+# Get today's date for the trendy Section
+today_date = datetime.now().strftime('%d-%m-%Y')
 
 # Function to format the date in Trendy Section
 def format_date(date_str):
@@ -168,7 +171,6 @@ def display_films_in_rows(films, card_class="movie-card-small"):
                 <img src="{film.poster_image}" alt="{film.title}">
                 <div class="movie-info">
                     <h4>{film.title}</h4>
-                    <h6>{format_date(str(film.release_date))}</h6>
                     <p>{format_providers(film.providers)}</p>
                     <p class="rating">{format_rating(film.vote_average)}</p>
                     <details>
@@ -247,7 +249,7 @@ if st.session_state.menu == "Trendy Films":
 # Today's Hot Pick Section 
 
     st.header("Today's Popping Hot Picks 🍿")
-    st.write("Discover the top movies released today, freshly popped just for you!")
+    st.write("Discover the top movies released today ({today_date}), freshly popped just for you!")
     st.markdown('<div class="movies-container">', unsafe_allow_html=True)
 
     trendy_films_today = get_trendy_films_today()
