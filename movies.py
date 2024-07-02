@@ -54,6 +54,9 @@ def local_css(file_name):
 # Apply custom CSS
 local_css("style.css")
 
+#---------PAGE CONFIGURATION--------------------------------------------------------------
+# Set page configuration to use wide layout
+st.set_page_config(layout="wide")
 
 #------------FUNCTIONS FOR EACH PAGE--------------------------------------------
 
@@ -160,9 +163,7 @@ def display_films_in_rows(films, card_class="movie-card-small"):
             """, unsafe_allow_html=True)
 
 
-#---------PAGE CONFIGURATION--------------------------------------------------------------
-# Set page configuration to use wide layout
-st.set_page_config(layout="wide")
+
 
 
 #---------SIDEBAR CONTENT-----------------------------------------------------------------
