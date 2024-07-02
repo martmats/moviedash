@@ -78,12 +78,13 @@ def get_trendy_films_today():
 # Function to format the release date
 def format_release_date(date_string):
     return date_string[:10] if date_string else "N/A"
+
+
 # Current Year
 current_year = datetime.now().year
 # Function to format rating
 def format_rating(rating):
     return f"{rating:.1f} stars" if rating else "N/A"
-
 
 # Function to get trendy films for the week
 def get_trendy_films_week():
