@@ -350,7 +350,7 @@ if st.session_state.menu == "Trendy Films":
 movies_df['genres'] = movies_df['genres'].apply(lambda x: x if isinstance(x, list) else [])
 
 # "Streaming Options" section
-elif st.session_state.menu == "Streaming Options":
+if st.session_state.menu == "Streaming Options":
     st.title("Find Your Perfect Film 🎬")
     st.write("Filter by Provider, Genre, Year, and Popularity to discover the best movies for you!")
     
