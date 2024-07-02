@@ -537,8 +537,35 @@ elif st.session_state.menu == "Interesting facts":
     # Display the chart
     st.plotly_chart(fig)
     
-# GRAPHIC 2: Genre Popularity per Year   
+# GRAPHIC 2: Genre Popularity per Year  
 
+st.subheader("Genre Popularity per Year: Discover the popularity of different genres of films over the years.")
+
+# Ensure 'genres' is in list format
+movies_df['genres'] = movies_df['genres'].apply(lambda x: x.split(',') if isinstance(x, str) else x)
+
+# Explode genres to separate rows
+movies_df = movies_df.explode('genres')
+
+# Multiselect for genres
+selected_genres = st.multiselect("Select Genres", options=movies_df['genres'].unique(), default=movies_df['genres'].unique())
+
+# Multiselect for years
+selected_years = st.multiselect("Select Years", options=movies_df['year'].unique(), default=movies_df['year'].unique())
+
+# Filter data based on selections
+filtered_movies = movies_df[(movies_df['genres'].isin(selected_genres)) & (movies_df['year'].isin(selected_years))]
+
+# Group by year and genre and count number of films
+films_per_genre_year = filtered_movies.groupby(['year', 'genres']).size().reset_index(name='count')
+
+# Create the bar chart
+fig_bar = px.bar(films_per_genre_year, x='year', y='count', color='genres', title='Number of Films in Each Genre per Year',
+                 labels={'year': 'Year', 'count': 'Number of Films', 'genres': 'Genre'}, barmode='group')
+
+# Display the chart
+st.plotly_chart(fig_bar)
+#--------------------------------------------------------without selection
     # Genre Popularity per Year: Bar chart illustrating the number of films in each genre per year
     st.subheader("Genre Popularity per Year: Discover the popularity of different genres of films over the years.")
     # Ensure 'genres' is in list format
