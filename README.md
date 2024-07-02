@@ -2,6 +2,10 @@
 
 MovieDash is a Streamlit web application designed to help you discover the latest and greatest movies. With daily updates on new releases, weekly trending films, and monthly highlights, MovieDash ensures you never miss out on must-watch movies. The app also offers detailed information on each film, including genres, ratings, and available streaming providers.
 
+# App
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]([https://<your-custom-subdomain](https://moviedash.streamlit.app/)>.streamlit.app)
+
 ## 🌟 Features
 
 - **🔥 Daily Hot Picks**: Discover the top movies released today.
