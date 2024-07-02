@@ -123,7 +123,7 @@ def format_providers(providers):
     return providers
 
 
-# Function to display films in styled HTML
+# Function to display films in styled HTML For Filter Section
 def display_films(films, card_class="movie-card"):
     for i in range(len(films)):
         film = films.iloc[i]
@@ -143,7 +143,7 @@ def display_films(films, card_class="movie-card"):
         </div>
         """, unsafe_allow_html=True)
 
-# Function to display films in rows
+# Function to display films in rows for Trendy Section
 def display_films_in_rows(films, card_class="movie-card-small"):
     films = films.head(10)  # Select top 10 films
     cols = st.columns(5)
@@ -154,7 +154,7 @@ def display_films_in_rows(films, card_class="movie-card-small"):
                 <img src="{film.poster_image}" alt="{film.title}">
                 <div class="movie-info">
                     <h4>{film.title}</h4>
-                    <p>{format_providers(film.release_date)}</p>
+                    <p>{df(film.release_date)}</p>
                     <p>{format_providers(film.providers)}</p>
                     <p class="rating">{format_rating(film.vote_average)}</p>
                     <details>
