@@ -223,7 +223,7 @@ if st.session_state.menu == "Trendy Films":
     <div class="hero-section">
         <h1>Welcome to MovieDash</h1>
         <h2>Your ultimate source for the latest and greatest films!</h2> 
-        <p>Grab your popcorn and dive into today's top picks, discover fascinating movie facts,<br> and easily find your favourite films with our advanced filters.</p>
+        <p>Get your popcorn and dive into today's top picks, discover fascinating movie facts,<br> and easily find your favourite films with our advanced filters.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -497,7 +497,7 @@ elif st.session_state.menu == "Streaming Options":
 
 elif st.session_state.menu == "Interesting facts":
     st.title("Film Release Trends Over Time")
-    st.header("Explore the number of films released each year from 2010 to the present")
+    st.header("Track the popping number of films released each year from 2010 to the present.")
 
     # Load the data
     movies_df = load_data()
@@ -534,7 +534,7 @@ elif st.session_state.menu == "Interesting facts":
 
     # Create the line chart
     fig = px.line(films_per_year_provider, x='year', y='count', color='providers', 
-                title='Number of Films Released Each Year by Provider',
+                title='See how many films each streaming service pops out annually.',
                 labels={'year': 'Year', 'count': 'Number of Films', 'providers': 'Provider'})
 
     # Display the chart
@@ -565,7 +565,7 @@ elif st.session_state.menu == "Interesting facts":
   
     # Most Popular Film of Each Year
     st.subheader("Most Popular Film of Each Year")
-    st.write("Find out the most popular film of each year based on vote count.")
+    st.write("Find out which film popped to the top each year based on vote count.")
 
     # Group by year and find the film with the highest vote count
     most_popular_each_year = movies_df.loc[movies_df.groupby('year')['vote_count'].idxmax()]
@@ -618,7 +618,7 @@ elif st.session_state.menu == "Interesting facts":
     movies_df['formatted_genres'] = movies_df['genres'].apply(format_genres)
 
     # Title of the Section
-    st.title("Film Release Date Analysis with Filters")
+    st.title("Explore Film Release Trends")
 
     # Filter options inside the main section
     filter_option = st.selectbox("Filter by", ["None", "Month", "Season", "Year"])
