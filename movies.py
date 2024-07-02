@@ -63,7 +63,7 @@ local_css("style.css")
 st.markdown("""
     <style>
         [data-testid=stSidebar] {
-            background-color: #aab0ed;
+            background-color: #cacef4;
         }
     </style>
     """, unsafe_allow_html=True)
@@ -96,7 +96,7 @@ st.session_state.menu = [key for key, value in menu_options.items() if value == 
 st.sidebar.markdown('''
 ---
 Created with ❤️ by [Marta Matias](https://digitalfutures.com).
-<H6>Data provided by Justwatch and TMDB</H6>
+Data provided by Justwatch and TMDB
 ''')
 
 #------------FUNCTIONS FOR TRENDY SECTION--------------------------------------------
