@@ -347,6 +347,9 @@ if st.session_state.menu == "Trendy Films":
 
 
 #STREAMING OPTION SECTION------------------------------------------------------------------------------------------------------------------------
+# Ensure genres column has no NaN values
+movies_df['genres'] = movies_df['genres'].apply(lambda x: x if isinstance(x, list) else [])
+
 # "Streaming Options" section
 elif st.session_state.menu == "Streaming Options":
     st.title("Find Your Perfect Film 🎬")
