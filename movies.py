@@ -58,46 +58,6 @@ def local_css(file_name):
 local_css("style.css")
 
 
-#---------SIDEBAR CONTENT-----------------------------------------------------------------
-# Sidebar Colour
-st.markdown("""
-    <style>
-        [data-testid=stSidebar] {
-            background-color: #cacef4;
-        }
-    </style>
-    """, unsafe_allow_html=True)
-
-# Sidebar Logo
-logo_path = "logo_moviedash.png"
-# Load the logo image
-logo_image = st.sidebar.image(logo_path, width=300)  # Adjust width and height as needed
-
-
-# Sidebar Menu Initialisation
-st.sidebar.markdown('<h2>Discover Your Movie</h2>', unsafe_allow_html=True)
-if 'menu' not in st.session_state:
-    st.session_state.menu = 'Trendy Films'
-
-# Sidebar menu options with icons
-menu_options = {
-    "Trendy Films": "🍿 Trendy Picks",
-    "Streaming Options": " 📺 Stream & Chill",
-    "Interesting facts": "🌟 Movies Fun Facts"
-}
-
-# Update menu based on selection
-menu = st.sidebar.radio("", list(menu_options.values()))
-st.session_state.menu = [key for key, value in menu_options.items() if value == menu][0]
-
-#---------SIDEBAR FOOTER------------------------------------------------
-
-# Sidebar footer
-st.sidebar.markdown('''
----
-Created with ❤️ by [Marta Matias](https://digitalfutures.com).
-Data provided by Justwatch and TMDB
-''')
 
 #------------FUNCTIONS FOR TRENDY SECTION--------------------------------------------
 
@@ -203,7 +163,46 @@ def display_films_in_rows(films, card_class="movie-card-small"):
             </div>
             """, unsafe_allow_html=True)
 
+#---------SIDEBAR CONTENT-----------------------------------------------------------------
+# Sidebar Colour
+st.markdown("""
+    <style>
+        [data-testid=stSidebar] {
+            background-color: #cacef4;
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
+# Sidebar Logo
+logo_path = "logo_moviedash.png"
+# Load the logo image
+logo_image = st.sidebar.image(logo_path, width=300)  # Adjust width and height as needed
+
+
+# Sidebar Menu Initialisation
+st.sidebar.markdown('<h2>Discover Your Movie</h2>', unsafe_allow_html=True)
+if 'menu' not in st.session_state:
+    st.session_state.menu = 'Trendy Films'
+
+# Sidebar menu options with icons
+menu_options = {
+    "Trendy Films": "🍿 Trendy Picks",
+    "Streaming Options": " 📺 Stream & Chill",
+    "Interesting facts": "🌟 Movies Fun Facts"
+}
+
+# Update menu based on selection
+menu = st.sidebar.radio("", list(menu_options.values()))
+st.session_state.menu = [key for key, value in menu_options.items() if value == menu][0]
+
+#---------SIDEBAR FOOTER------------------------------------------------
+
+# Sidebar footer
+st.sidebar.markdown('''
+---
+Created with ❤️ by [Marta Matias](https://digitalfutures.com).
+Data provided by Justwatch and TMDB
+''')
 
 #----------------------TRENDY SECTION------------------------------------------
 # Display the selected menu content
