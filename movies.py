@@ -345,7 +345,8 @@ if st.session_state.menu == "Trendy Films":
                     """, unsafe_allow_html=True)
                 st.plotly_chart(fig_month)
 
-#-----------------------------------------------------
+#-------------------  STREAMING OPTIONS SECTION -------------------------------
+
 # Ensure genres column has no NaN values
 movies_df['genres'] = movies_df['genres'].apply(lambda x: x if isinstance(x, list) else [])
 
@@ -386,9 +387,9 @@ if st.session_state.menu == "Streaming Options":
     
         popularity_range = st.slider(
             "📈 Select Popularity Range",
-            min_value=int(movies_df['vote_count'].min()),
-            max_value=int(movies_df['vote_count'].max()),
-            value=(int(movies_df['vote_count'].min()), int(movies_df['vote_count'].max())),
+            min_value=int(movies_df['vote_average'].min()),
+            max_value=int(movies_df['vote_average'].max()),
+            value=(int(movies_df['vote_average'].min()), int(movies_df['vote_average'].max())),
             format="%d",
             help="Slide to choose between less popular to extremely popular movies based on vote count."
         )
@@ -405,7 +406,7 @@ if st.session_state.menu == "Streaming Options":
             filtered_movies_df['providers'].apply(lambda x: any(provider in x for provider in selected_providers)) &
             filtered_movies_df['genres'].apply(lambda x: any(genre in x for genre in selected_genres)) &
             filtered_movies_df['year'].between(year_filter[0], year_filter[1]) &
-            filtered_movies_df['vote_count'].between(popularity_range[0], popularity_range[1])
+            filtered_movies_df['vote_average'].between(popularity_range[0], popularity_range[1])
         ]
     
         # Display the filtered films in a grid layout
