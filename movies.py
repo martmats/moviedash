@@ -386,7 +386,7 @@ elif st.session_state.menu == "Streaming Options":
             format="%d",
             help="Slide to choose between less popular to extremely popular movies."
         )
-    
+    with col2:    
     # Filter the dataframe based on the search query
     if search_query:
         filtered_movies_df = movies_df[movies_df['title'].str.contains(search_query, case=False, na=False)]
