@@ -426,7 +426,7 @@ if st.session_state.menu == "Streaming Options":
                             <h4>{film['title']}</h4>
                             <p><b>Provider:</b> {matching_provider}</p>
                             <p><b>Release Date:</b> {film['release_date'].strftime('%d/%m/%Y')}</p>
-                            <p class="rating">{film['vote_average']}</p>
+                                <p class="rating">{format_rating(film.vote_average)}</p>
                             <details>
                                 <summary>More info</summary>
                                 <p>{film['overview']}</p>
