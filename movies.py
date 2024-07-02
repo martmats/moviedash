@@ -165,9 +165,6 @@ def display_films_in_rows(films, card_class="movie-card-small"):
             """, unsafe_allow_html=True)
 
 
-
-
-
 #---------SIDEBAR CONTENT-----------------------------------------------------------------
 # Sidebar Colour
 st.markdown("""
@@ -205,7 +202,7 @@ st.session_state.menu = [key for key, value in menu_options.items() if value == 
 # Sidebar footer
 st.sidebar.markdown('''
 ---
-Created with ❤️ by [Marta Matias](https://digitalfutures.com).
+Created with ❤️ by [Marta Matias](https://digitalfutures.com).<br>
 Data provided by Justwatch and TMDB
 ''')
 
@@ -543,8 +540,7 @@ elif st.session_state.menu == "Interesting facts":
 # GRAPHIC 2: Genre Popularity per Year   
 
     # Genre Popularity per Year: Bar chart illustrating the number of films in each genre per year
-    st.write("Genre Popularity per Year: Discover the popularity of different genres of films over the years.")
-
+    st.subheader("Genre Popularity per Year: Discover the popularity of different genres of films over the years.")
     # Ensure 'genres' is in list format
     movies_df['genres'] = movies_df['genres'].apply(lambda x: x.split(',') if isinstance(x, str) else x)
 
@@ -640,7 +636,7 @@ elif st.session_state.menu == "Interesting facts":
             filtered_df = movies_df[movies_df['release_year'].isin(selected_years)]
 
     # Visualizing Monthly Film Releases and Ratings
-    st.header("Monthly Film Releases, Ratings, and Genres Distribution")
+    st.subheader("Monthly Film Releases, Ratings, and Genres Distribution")
     col1, col2, col3 = st.columns(3)
 
     monthly_release_count = filtered_df.groupby('release_month').size().reset_index(name='count')
@@ -663,7 +659,7 @@ elif st.session_state.menu == "Interesting facts":
         st.plotly_chart(fig)
 
     # Visualizing Seasonal Film Releases and Ratings
-    st.header("Seasonal Film Releases, Ratings, and Genres Distribution")
+    st.subheader("Seasonal Film Releases, Ratings, and Genres Distribution")
     col1, col2, col3 = st.columns(3)
 
     seasonal_release_count = filtered_df.groupby('season').size().reset_index(name='count')
