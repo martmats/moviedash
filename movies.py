@@ -242,7 +242,7 @@ if st.session_state.menu == "Trendy Films":
 # Weekly Hotpicks Section
 
     st.markdown("""
-    <div style="background-color: #dbebff; padding: 20px; border-radius: 10px;">
+    <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
         <h2>This Week's Must-Watch Popcorn Flicks 🎥</h2>
         <p>Catch the latest and greatest films hitting your screens this week!</p>
         <div class="movies-container">
@@ -267,7 +267,7 @@ if st.session_state.menu == "Trendy Films":
 # Interesting Facts section
 
     st.markdown("""
-    <div style="background-color: #dbebff; padding: 20px; border-radius: 10px;">
+    <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
         <h2>Fun Fact Popcorn Kernel 💡</h2>
         <p>Genres Distribution in This Week's and This Month's Must-Watch Movies</p>
         <div class="movies-container">
