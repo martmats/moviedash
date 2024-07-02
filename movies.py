@@ -81,9 +81,9 @@ if 'menu' not in st.session_state:
 
 # Sidebar menu options with icons
 menu_options = {
-    "Trendy Films": "🔥 Trendy Films",
-    "Streaming Options": " 🎥 Streaming Options",
-    "Interesting facts": "⭐ Interesting Facts"
+    "Trendy Films": "🍿 Trendy Picks",
+    "Streaming Options": " 📺 Stream & Chill",
+    "Interesting facts": "🌟 Movies Fun Facts"
 }
 
 # Update menu based on selection
@@ -268,8 +268,8 @@ if st.session_state.menu == "Trendy Films":
 
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
-        <h2>Fun Fact Popcorn Kernel 💡</h2>
-        <p>Genres Distribution in This Week's and This Month's Must-Watch Movies</p>
+        <h2>Popcorn Fun Fact 💡</h2>
+        <p>Explore genres distribution in this week's and this month's must-watch movies.</p>
         <div class="movies-container">
     """, unsafe_allow_html=True)    
     # Close the div
@@ -284,7 +284,7 @@ if st.session_state.menu == "Trendy Films":
         with col1:
             st.markdown("""
             <div style="background-color: #FFF478; padding: 20px; border-radius: 10px;">
-            <h2>This Week</h2>
+            <h2>Popping This Week</h2>
             """, unsafe_allow_html=True)
             # Create a list of all genres from the films
             genres_list_week = []
@@ -311,7 +311,7 @@ if st.session_state.menu == "Trendy Films":
         with col2:
             st.markdown("""            
             <div style="background-color: #FFF478; padding: 20px; border-radius: 10px;">
-            <h2>This Month</h2>
+            <h2>Sizzling This Month</h2>
             """, unsafe_allow_html=True)
             
             trendy_films_month = get_trendy_films_month()
