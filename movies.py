@@ -345,7 +345,7 @@ if st.session_state.menu == "Trendy Films":
                     """, unsafe_allow_html=True)
                 st.plotly_chart(fig_month)
 
------------------------------------------------------
+#-----------------------------------------------------
 # Ensure genres column has no NaN values
 movies_df['genres'] = movies_df['genres'].apply(lambda x: x if isinstance(x, list) else [])
 
