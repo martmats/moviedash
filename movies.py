@@ -185,7 +185,7 @@ logo_image = st.sidebar.image(logo_path, width=300)  # Adjust width and height a
 
 
 # Sidebar Menu Initialisation
-st.sidebar.markdown('<h2>Discover Your Movie</h2>', unsafe_allow_html=True)
+
 if 'menu' not in st.session_state:
     st.session_state.menu = 'Trendy Films'
 
