@@ -396,7 +396,7 @@ elif st.session_state.menu == "Streaming Options":
             filtered_movies_df['providers'].apply(lambda x: any(provider in x for provider in selected_providers)) &
             filtered_movies_df['genres'].apply(lambda x: any(genre in x for genre in selected_genres)) &
             filtered_movies_df['year'].between(year_filter[0], year_filter[1]) &
-            filtered_movies_df['vote_count'].between(popularity_range[0], popularity_range[1])
+            filtered_movies_df['vote_average'].between(popularity_range[0], popularity_range[1])
         ]
 
         # Display the filtered films in a grid layout
