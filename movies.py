@@ -75,13 +75,21 @@ def get_trendy_films_today():
     
     return trendy_films
 
-# Function to format the release date
+# Function to format the release date in Fun Fact Page
 def format_release_date(date_string):
     return date_string[:10] if date_string else "N/A"
 
 
 # Current Year
 current_year = datetime.now().year
+
+# Function to format the date in Trendy Section
+def format_date(date_str):
+    if date_str:
+        date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+        return date_obj.strftime('%d-%m-%Y')
+    return ''
+    
 # Function to format rating
 def format_rating(rating):
     return f"{rating:.1f} stars" if rating else "N/A"
@@ -154,7 +162,7 @@ def display_films_in_rows(films, card_class="movie-card-small"):
                 <img src="{film.poster_image}" alt="{film.title}">
                 <div class="movie-info">
                     <h4>{film.title}</h4>
-                    <p>{format_providers(film.release_date)}</p>
+                    <p>{format_date(str(film.release_date))}</p>>
                     <p>{format_providers(film.providers)}</p>
                     <p class="rating">{format_rating(film.vote_average)}</p>
                     <details>
