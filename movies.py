@@ -386,46 +386,47 @@ elif st.session_state.menu == "Streaming Options":
             format="%d",
             help="Slide to choose between less popular to extremely popular movies."
         )
-    with col2:    
-    # Filter the dataframe based on the search query
-    if search_query:
-        filtered_movies_df = movies_df[movies_df['title'].str.contains(search_query, case=False, na=False)]
-    else:
-        filtered_movies_df = movies_df.copy()
     
-    # Further filter the dataframe based on other user selections
-    filtered_movies_df = filtered_movies_df[
-        filtered_movies_df['providers'].apply(lambda x: any(provider in x for provider in selected_providers)) &
-        filtered_movies_df['genres'].apply(lambda x: any(genre in x for genre in selected_genres)) &
-        filtered_movies_df['year'].between(year_filter[0], year_filter[1]) &
-        filtered_movies_df['vote_average'].between(popularity_range[0], popularity_range[1])
-    ]
+    with col2:
+        # Filter the dataframe based on the search query
+        if search_query:
+            filtered_movies_df = movies_df[movies_df['title'].str.contains(search_query, case=False, na=False)]
+        else:
+            filtered_movies_df = movies_df.copy()
     
-    # Display the filtered films in a grid layout
-    if filtered_movies_df.empty:
-        st.write("No films match the selected criteria.")
-    else:
-        cols = st.columns(4)
-        for i, film in filtered_movies_df.iterrows():
-            # Find the matching provider for the selected provider
-            matching_provider = next((provider for provider in film['providers'] if provider in selected_providers), None)
-            
-            with cols[i % 4]:
-                st.markdown(f"""
-                <div class="movie-card">
-                    <img src="{film['poster_image']}" alt="{film['title']}">
-                    <div class="movie-info">
-                        <h4>{film['title']}</h4>
-                        <p><b>Provider:</b> {matching_provider}</p>
-                        <p><b>Release Date:</b> {film['release_date'].strftime('%d/%m/%Y')}</p>
-                        <p class="rating">{film['vote_average']}</p>
-                        <details>
-                            <summary>More info</summary>
-                            <p>{film['overview']}</p>
-                        </details>
+        # Further filter the dataframe based on other user selections
+        filtered_movies_df = filtered_movies_df[
+            filtered_movies_df['providers'].apply(lambda x: any(provider in x for provider in selected_providers)) &
+            filtered_movies_df['genres'].apply(lambda x: any(genre in x for genre in selected_genres)) &
+            filtered_movies_df['year'].between(year_filter[0], year_filter[1]) &
+            filtered_movies_df['vote_average'].between(popularity_range[0], popularity_range[1])
+        ]
+    
+        # Display the filtered films in a grid layout
+        if filtered_movies_df.empty:
+            st.write("No films match the selected criteria.")
+        else:
+            cols = st.columns(4)
+            for i, film in filtered_movies_df.iterrows():
+                # Find the matching provider for the selected provider
+                matching_provider = next((provider for provider in film['providers'] if provider in selected_providers), None)
+                
+                with cols[i % 4]:
+                    st.markdown(f"""
+                    <div class="movie-card">
+                        <img src="{film['poster_image']}" alt="{film['title']}">
+                        <div class="movie-info">
+                            <h4>{film['title']}</h4>
+                            <p><b>Provider:</b> {matching_provider}</p>
+                            <p><b>Release Date:</b> {film['release_date'].strftime('%d/%m/%Y')}</p>
+                            <p class="rating">{film['vote_average']}</p>
+                            <details>
+                                <summary>More info</summary>
+                                <p>{film['overview']}</p>
+                            </details>
+                        </div>
                     </div>
-                </div>
-                """, unsafe_allow_html=True)
+                    """, unsafe_allow_html=True)
 #-------------------------------------------------------------------------------   
  # Title of this section
     st.markdown("""
