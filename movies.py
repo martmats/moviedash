@@ -60,8 +60,6 @@ local_css("style.css")
 
 #---------SIDEBAR CONTENT-----------------------------------------------------------------
 
-
-)
 # Sidebar Logo
 logo_path = "logo_moviedash.png"
 # Load the logo image
