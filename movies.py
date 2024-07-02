@@ -84,7 +84,7 @@ def format_release_date(date_string):
 current_year = datetime.now().year
 
 # Get today's date for the trendy Section
-today_date = datetime.now().strftime('%d-%m-%Y')
+today_date = datetime.now().strftime('%A %d-%m-%Y')
 
 # Function to format the date in Trendy Section
 def format_date(date_str):
@@ -249,7 +249,7 @@ if st.session_state.menu == "Trendy Films":
 # Today's Hot Pick Section
 
     st.header("Today's Popping Hot Picks 🍿")
-    st.write(f"Discover the top movies released today ({today_date}), freshly popped just for you!")
+    st.write(f"Discover the top movies released today {today_date}, freshly popped just for you!")
     st.markdown('<div class="movies-container">', unsafe_allow_html=True)
 
     trendy_films_today = get_trendy_films_today()
