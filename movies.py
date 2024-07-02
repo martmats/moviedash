@@ -203,14 +203,6 @@ st.session_state.menu = [key for key, value in menu_options.items() if value == 
 st.sidebar.markdown('''
 ---
 Created with ❤️ by [Marta Matias](https://digitalfutures.com).
-
-
-
-
-
-
-
-
 Data provided by Justwatch and TMDB
 ''')
 
@@ -224,9 +216,12 @@ if st.session_state.menu == "Trendy Films":
         .hero-section h2 {
             color: white;
         }
+        .hero-section .highlight {
+            color: #FF3131;
+        }
     </style>
     <div class="hero-section">
-        <h1>Welcome to MovieDash</h1>
+        <h1>Welcome to <span class="highlight">Movie</span>Dash</h1>
         <h2>Your ultimate source for the latest and greatest films!</h2> 
         <p>Get your popcorn and dive into today's top picks, discover fascinating movie facts,<br> and easily find your favourite films with our advanced filters.</p>
     </div>
