@@ -59,16 +59,17 @@ local_css("style.css")
 
 
 #---------SIDEBAR CONTENT-----------------------------------------------------------------
-st.markdown("""
+st.markdown(
+    """
 <style>
-    [data-testid=stSidebar] {
-        background-color: #EEF0FD;
-    }
+.sidebar .sidebar-content {
+    background-image: linear-gradient(#2e7bcf,#2e7bcf);
+    color: white;
+}
 </style>
-""", unsafe_allow_html=True)
-
-with st.sidebar:
-    "## This is the sidebar"
+""",
+    unsafe_allow_html=True,
+)
 # Sidebar Logo
 logo_path = "logo_moviedash.png"
 # Load the logo image
