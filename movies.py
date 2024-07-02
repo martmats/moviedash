@@ -249,7 +249,7 @@ if st.session_state.menu == "Trendy Films":
 # Today's Hot Pick Section
 
     st.header("Today's Popping Hot Picks 🍿")
-    st.write(f"Discover the top movies released today <b>{today_date}</b>, freshly popped just for you!")
+    st.write(f"Discover the top movies released today <strong>{today_date}</strong>, freshly popped just for you!")
     st.markdown('<div class="movies-container">', unsafe_allow_html=True)
 
     trendy_films_today = get_trendy_films_today()
