@@ -86,7 +86,13 @@ current_year = datetime.now().year
 # Function to format the date in Trendy Section
 def format_date(date_str):
     if date_str:
-        date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+        try:
+            date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+        except ValueError:
+            try:
+                date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+            except ValueError:
+                return date_str  # Return the original string if it doesn't match expected formats
         return date_obj.strftime('%d-%m-%Y')
     return ''
     
