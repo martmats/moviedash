@@ -59,6 +59,14 @@ local_css("style.css")
 
 
 #---------SIDEBAR CONTENT-----------------------------------------------------------------
+# Sidebar Colour
+st.markdown("""
+    <style>
+        [data-testid=stSidebar] {
+            background-color: #aab0ed;
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Sidebar Logo
 logo_path = "logo_moviedash.png"
@@ -82,25 +90,13 @@ menu_options = {
 menu = st.sidebar.radio("", list(menu_options.values()))
 st.session_state.menu = [key for key, value in menu_options.items() if value == menu][0]
 
-#---------SIDEBAR STYLE------------------------------------------------
-# Change colour in the sidebar
-st.markdown("""
-    <style>
-        [data-testid=stSidebar] {
-            background-color: #aab0ed;
-        }
-    </style>
-    """, unsafe_allow_html=True)
+#---------SIDEBAR FOOTER------------------------------------------------
 
-
-# Sidebar content
-
+# Sidebar footer
 st.sidebar.markdown('''
 ---
 Created with ❤️ by [Marta Matias](https://digitalfutures.com).
-
-
-Data provided by Justwatch and TMDB
+<H6>Data provided by Justwatch and TMDB</H6>
 ''')
 
 #------------FUNCTIONS FOR TRENDY SECTION--------------------------------------------
