@@ -428,14 +428,30 @@ elif st.session_state.menu == "Streaming Options":
                     </div>
                     """, unsafe_allow_html=True)
 #-------------------------------------------------------------------------------   
+ # Title of this section
+    st.markdown("""
+    <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
+        <h2>Popcorn Fun Fact 💡</h2>
+        <p>Explore interesting bites from our Providers.</p>
+        <div class="movies-container">
+    """, unsafe_allow_html=True)    
+    # Close the div
+    st.markdown("""
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
 # Create some graphs about providers
     col1, col2 = st.columns(2)
 
     with col1:
         # Provider Market Share
-        st.subheader("Provider Market Share")
-        st.write("Explore the percentage of films available on each provider.")
-
+        st.markdown("""
+            <div style="background-color: #FFF478; padding: 20px; border-radius: 10px;">
+            <h2>Provider Market Share</h2>
+            <p>Explore the percentage of films available on each provider.</>
+            """, unsafe_allow_html=True)
+        st.subheader("Provider Market Share")    
         # Filter only the specified providers
         selected_providers = [
             'Amazon Prime Video', 'Netflix', 'Disney Plus', 'Now TV Cinema', 'Paramount Plus', 'Sky Go'
