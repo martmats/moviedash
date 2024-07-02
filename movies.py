@@ -649,7 +649,7 @@ elif st.session_state.menu == "Interesting facts":
             return genres
         if isinstance(genres, float) and math.isnan(genres):
             return []
-    return genres.split(", ") if genres else []
+        return genres.split(", ") if genres else []
 
     movies_df['formatted_genres'] = movies_df['genres'].apply(format_genres)
 
