@@ -87,7 +87,7 @@ st.session_state.menu = [key for key, value in menu_options.items() if value == 
 st.markdown("""
     <style>
         [data-testid=stSidebar] {
-            background-color: #EEF0FD;
+            background-color: #99a1ea;
         }
     </style>
     """, unsafe_allow_html=True)
