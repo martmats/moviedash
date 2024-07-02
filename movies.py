@@ -450,8 +450,7 @@ elif st.session_state.menu == "Streaming Options":
             <div style="background-color: #FFF478; padding: 20px; border-radius: 10px;">
             <h2>Provider Market Share</h2>
             <p>Explore the percentage of films available on each provider.</>
-            """, unsafe_allow_html=True)
-        st.subheader("Provider Market Share")    
+            """, unsafe_allow_html=True)  
         # Filter only the specified providers
         selected_providers = [
             'Amazon Prime Video', 'Netflix', 'Disney Plus', 'Now TV Cinema', 'Paramount Plus', 'Sky Go'
@@ -475,7 +474,7 @@ elif st.session_state.menu == "Streaming Options":
 
         # Update layout to hide the legend
         fig_donut.update_layout(
-            title_text="Provider Market Share",
+            title_text="",
             showlegend=False
         )
 
@@ -484,8 +483,11 @@ elif st.session_state.menu == "Streaming Options":
 
     with col2:
         # Most Popular Films by Provider
-        st.subheader("Most Popular Films by Provider")
-        st.write("Explore which provider has the most popular films based on vote count.")
+        st.markdown("""
+        <div style="background-color: #FFF478; padding: 20px; border-radius: 10px;">
+        <h2>Most Popular Films by Provider</h2>
+        <p>Explore which provider has the most popular films based on vote count.</>
+        """, unsafe_allow_html=True)  
 
         # Explode 'providers' column to create separate rows for each provider
         exploded_movies_df = filtered_movies_df.explode('providers')
@@ -500,7 +502,7 @@ elif st.session_state.menu == "Streaming Options":
             provider_popularity_counts,
             x='provider',
             y='count',
-            title='Most Popular Films by Provider',
+            title='',
             labels={'provider': 'Provider', 'count': 'Number of Most Popular Films'}
         )
 
