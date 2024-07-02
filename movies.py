@@ -5,7 +5,7 @@ from datetime import datetime
 import plotly.express as px
 import plotly.graph_objects as go
 from PIL import Image
-
+import math
 
 #---------PAGE CONFIGURATION--------------------------------------------------------------
 # Set page configuration to use wide layout
@@ -645,9 +645,11 @@ elif st.session_state.menu == "Interesting facts":
 
     # Function to format genres for filtering
     def format_genres(genres):
-        if isinstance(genres, list):
-            return genres
-        return genres.split(", ") if genres else []
+    if isinstance(genres, list):
+        return genres
+    if isinstance(genres, float) and math.isnan(genres):
+        return []
+    return genres.split(", ") if genres else []
 
     movies_df['formatted_genres'] = movies_df['genres'].apply(format_genres)
 
