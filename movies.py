@@ -345,8 +345,7 @@ if st.session_state.menu == "Trendy Films":
                     """, unsafe_allow_html=True)
                 st.plotly_chart(fig_month)
 
-
-#STREAMING OPTION SECTION------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------
 # Ensure genres column has no NaN values
 movies_df['genres'] = movies_df['genres'].apply(lambda x: x if isinstance(x, list) else [])
 
@@ -435,8 +434,7 @@ elif st.session_state.menu == "Streaming Options":
                     </div>
                     """, unsafe_allow_html=True)
 
-#-------------------------------------------------------------------------------   
- # Title of this section
+    # Title of this section
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
         <h2>Popcorn Fun Fact 💡</h2>
@@ -449,7 +447,7 @@ elif st.session_state.menu == "Streaming Options":
     </div>
     """, unsafe_allow_html=True)
 
-# Create some graphs about providers
+    # Create some graphs about providers
     col1, col2 = st.columns(2)
 
     with col1:
@@ -457,8 +455,9 @@ elif st.session_state.menu == "Streaming Options":
         st.markdown("""
             <div style="background-color: #FFF478; padding: 20px; border-radius: 10px;">
             <h2>Provider Market Share</h2>
-            <p>Explore the percentage of films available on each provider.</>
+            <p>Explore the percentage of films available on each provider.</p>
             """, unsafe_allow_html=True)  
+        
         # Filter only the specified providers
         selected_providers = [
             'Amazon Prime Video', 'Netflix', 'Disney Plus', 'Now TV Cinema', 'Paramount Plus', 'Sky Go'
@@ -494,7 +493,7 @@ elif st.session_state.menu == "Streaming Options":
         st.markdown("""
         <div style="background-color: #FFF478; padding: 20px; border-radius: 10px;">
         <h2>Most Popular Films by Provider</h2>
-        <p>Explore which provider has the most popular films based on vote count.</>
+        <p>Explore which provider has the most popular films based on vote count.</p>
         """, unsafe_allow_html=True)  
 
         # Explode 'providers' column to create separate rows for each provider
@@ -516,6 +515,7 @@ elif st.session_state.menu == "Streaming Options":
 
         # Display the chart
         st.plotly_chart(fig_bar_popularity)
+
 
 # INTERESTING FACT SECTION------------------------------------------------------------------------------------------------------------------------
 
