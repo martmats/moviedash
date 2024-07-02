@@ -343,106 +343,106 @@ if st.session_state.menu == "Trendy Films":
 
 #STREAMING OPTION SECTION------------------------------------------------------------------------------------------------------------------------
 
-# Define the mapping function for popularity
-def popularity_scale(vote_count):
-    # Set the thresholds based on the description provided
-    max_vote_count = int(movies_df['vote_count'].max())
-    min_vote_count = int(movies_df['vote_count'].min())
-    scale_6_threshold = 1600
-
-    # Calculate scale points for 1-10
-    if vote_count <= scale_6_threshold:
-        # Linear scale from min_vote_count to scale_6_threshold from 1 to 6
-        return np.interp(vote_count, [min_vote_count, scale_6_threshold], [1, 6])
-    else:
-        # Linear scale from scale_6_threshold to max_vote_count from 6 to 10
-        return np.interp(vote_count, [scale_6_threshold, max_vote_count], [6, 10])
-
-# Apply the function to your vote count data to find the min and max for the slider
-popularity_values = movies_df['vote_count'].apply(popularity_scale)
-min_popularity, max_popularity = int(popularity_values.min()), int(popularity_values.max())
-
-elif st.session_state.menu == "Streaming Options":
-    st.title("Find Your Perfect Film 🎬")
-    st.write("Filter by Provider, Genre, Year, and Popularity to discover the best movies for you!")
-
-    col1, col2 = st.columns([1, 3])
-
-    with col1:
-        # Search filter
-        search_query = st.text_input("🔍 Search for a film", value="")
-
-        # Filter options
-        selected_providers = st.multiselect(
-            "📺 Select Provider",
-            options=['Amazon Prime Video', 'Netflix', 'Disney Plus', 'Apple TV', 'Now TV Cinema', 'Paramount Plus', 'Sky Go'],
-            default=['Netflix', 'Amazon Prime Video', 'Disney Plus', 'Apple TV', 'Now TV Cinema', 'Paramount Plus', 'Sky Go']
-        )
-
-        selected_genres = st.multiselect(
-            "🎭 Select Genres",
-            options=movies_df['genres'].explode().unique(),
-            default=movies_df['genres'].explode().unique()
-        )
-
-        # Year filter slider
-        year_filter = st.slider(
-            "📅 Filter by Release Year",
-            min_value=2010,
-            max_value=current_year,
-            step=1,
-            value=(2010, current_year)
-        )
-
-        popularity_range = st.slider(
-            "📈 Select Popularity Range",
-            min_value=min_popularity,
-            max_value=max_popularity,
-            value=(min_popularity, max_popularity),
-            format="%d",
-            help="Slide to choose between less popular to extremely popular movies based on a 1 to 10 scale."
-        )
-
-    with col2:
-        # Filter the dataframe based on the search query
-        if search_query:
-            filtered_movies_df = movies_df[movies_df['title'].str.contains(search_query, case=False, na=False)]
+    # Define the mapping function for popularity
+    def popularity_scale(vote_count):
+        # Set the thresholds based on the description provided
+        max_vote_count = int(movies_df['vote_count'].max())
+        min_vote_count = int(movies_df['vote_count'].min())
+        scale_6_threshold = 1600
+    
+        # Calculate scale points for 1-10
+        if vote_count <= scale_6_threshold:
+            # Linear scale from min_vote_count to scale_6_threshold from 1 to 6
+            return np.interp(vote_count, [min_vote_count, scale_6_threshold], [1, 6])
         else:
-            filtered_movies_df = movies_df.copy()
-
-        # Further filter the dataframe based on other user selections
-        filtered_movies_df = filtered_movies_df[
-            filtered_movies_df['providers'].apply(lambda x: any(provider in x for provider in selected_providers)) &
-            filtered_movies_df['genres'].apply(lambda x: any(genre in x for genre in selected_genres)) &
-            filtered_movies_df['year'].between(year_filter[0], year_filter[1]) &
-            filtered_movies_df['vote_count'].apply(popularity_scale).between(popularity_range[0], popularity_range[1])
-        ]
-
-        # Display the filtered films in a grid layout
-        if filtered_movies_df.empty:
-            st.write("No films match the selected criteria.")
-        else:
-            cols = st.columns(4)
-            for i, film in filtered_movies_df.iterrows():
-                # Find the matching provider for the selected provider
-                matching_provider = next((provider for provider in film['providers'] if provider in selected_providers), None)
-                
-                with cols[i % 4]:
-                    st.markdown(f"""
-                    <div class="movie-card">
-                        <img src="{film['poster_image']}" alt="{film['title']}">
-                        <div class="movie-info">
-                            <h4>{film['title']}</h4>
-                            <p><b>Provider:</b> {matching_provider}</p>
-                            <p><b>Release Date:</b> {film['release_date'].strftime('%d/%m/%Y')}</p>
-                            <p class="rating">{film['vote_average']}</p>
-                            <details>
-                                <summary>More info</summary>
-                                <p>{film['overview']}</p>
-                            </details>
+            # Linear scale from scale_6_threshold to max_vote_count from 6 to 10
+            return np.interp(vote_count, [scale_6_threshold, max_vote_count], [6, 10])
+    
+    # Apply the function to your vote count data to find the min and max for the slider
+    popularity_values = movies_df['vote_count'].apply(popularity_scale)
+    min_popularity, max_popularity = int(popularity_values.min()), int(popularity_values.max())
+    
+    elif st.session_state.menu == "Streaming Options":
+        st.title("Find Your Perfect Film 🎬")
+        st.write("Filter by Provider, Genre, Year, and Popularity to discover the best movies for you!")
+    
+        col1, col2 = st.columns([1, 3])
+    
+        with col1:
+            # Search filter
+            search_query = st.text_input("🔍 Search for a film", value="")
+    
+            # Filter options
+            selected_providers = st.multiselect(
+                "📺 Select Provider",
+                options=['Amazon Prime Video', 'Netflix', 'Disney Plus', 'Apple TV', 'Now TV Cinema', 'Paramount Plus', 'Sky Go'],
+                default=['Netflix', 'Amazon Prime Video', 'Disney Plus', 'Apple TV', 'Now TV Cinema', 'Paramount Plus', 'Sky Go']
+            )
+    
+            selected_genres = st.multiselect(
+                "🎭 Select Genres",
+                options=movies_df['genres'].explode().unique(),
+                default=movies_df['genres'].explode().unique()
+            )
+    
+            # Year filter slider
+            year_filter = st.slider(
+                "📅 Filter by Release Year",
+                min_value=2010,
+                max_value=current_year,
+                step=1,
+                value=(2010, current_year)
+            )
+    
+            popularity_range = st.slider(
+                "📈 Select Popularity Range",
+                min_value=min_popularity,
+                max_value=max_popularity,
+                value=(min_popularity, max_popularity),
+                format="%d",
+                help="Slide to choose between less popular to extremely popular movies based on a 1 to 10 scale."
+            )
+    
+        with col2:
+            # Filter the dataframe based on the search query
+            if search_query:
+                filtered_movies_df = movies_df[movies_df['title'].str.contains(search_query, case=False, na=False)]
+            else:
+                filtered_movies_df = movies_df.copy()
+    
+            # Further filter the dataframe based on other user selections
+            filtered_movies_df = filtered_movies_df[
+                filtered_movies_df['providers'].apply(lambda x: any(provider in x for provider in selected_providers)) &
+                filtered_movies_df['genres'].apply(lambda x: any(genre in x for genre in selected_genres)) &
+                filtered_movies_df['year'].between(year_filter[0], year_filter[1]) &
+                filtered_movies_df['vote_count'].apply(popularity_scale).between(popularity_range[0], popularity_range[1])
+            ]
+    
+            # Display the filtered films in a grid layout
+            if filtered_movies_df.empty:
+                st.write("No films match the selected criteria.")
+            else:
+                cols = st.columns(4)
+                for i, film in filtered_movies_df.iterrows():
+                    # Find the matching provider for the selected provider
+                    matching_provider = next((provider for provider in film['providers'] if provider in selected_providers), None)
+                    
+                    with cols[i % 4]:
+                        st.markdown(f"""
+                        <div class="movie-card">
+                            <img src="{film['poster_image']}" alt="{film['title']}">
+                            <div class="movie-info">
+                                <h4>{film['title']}</h4>
+                                <p><b>Provider:</b> {matching_provider}</p>
+                                <p><b>Release Date:</b> {film['release_date'].strftime('%d/%m/%Y')}</p>
+                                <p class="rating">{film['vote_average']}</p>
+                                <details>
+                                    <summary>More info</summary>
+                                    <p>{film['overview']}</p>
+                                </details>
+                            </div>
                         </div>
-                    </div>
-                    """, unsafe_allow_html=True)
+                        """, unsafe_allow_html=True)
 
 #-------------------------------------------------------------------------------   
 # Create some graphs about providers
