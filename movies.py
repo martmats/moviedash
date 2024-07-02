@@ -168,7 +168,7 @@ def display_films_in_rows(films, card_class="movie-card-small"):
                 <img src="{film.poster_image}" alt="{film.title}">
                 <div class="movie-info">
                     <h4>{film.title}</h4>
-                    <h4>{format_date(str(film.release_date))}</h4>
+                    <h5>{format_date(str(film.release_date))}</h5>
                     <p>{format_providers(film.providers)}</p>
                     <p class="rating">{format_rating(film.vote_average)}</p>
                     <details>
