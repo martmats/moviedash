@@ -132,7 +132,6 @@ def display_films(films, card_class="movie-card"):
             <img src="{film['poster_image']}" alt="{film['title']}">
             <div class="movie-info">
                 <h4>{film['title']}</h4>
-                <p>{format_providers(film['release_date'])}</p>
                 <p>{format_providers(film['providers'])}</p>
                 <p class="rating">{format_rating(film['vote_average'])}</p>
                 <details>
@@ -155,6 +154,7 @@ def display_films_in_rows(films, card_class="movie-card-small"):
                 <img src="{film.poster_image}" alt="{film.title}">
                 <div class="movie-info">
                     <h4>{film.title}</h4>
+                    <p>{format_providers(film['release_date'])}</p>
                     <p>{format_providers(film.providers)}</p>
                     <p class="rating">{format_rating(film.vote_average)}</p>
                     <details>
