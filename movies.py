@@ -204,6 +204,13 @@ st.sidebar.markdown('''
 ---
 Created with ❤️ by [Marta Matias](https://digitalfutures.com).
 
+
+
+
+
+
+
+
 Data provided by Justwatch and TMDB
 ''')
 
