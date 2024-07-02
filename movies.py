@@ -6,6 +6,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 from PIL import Image
 
+
+#---------PAGE CONFIGURATION--------------------------------------------------------------
+# Set page configuration to use wide layout
+st.set_page_config(layout="wide")
+
 #---------------LOAD DATA FROM THE DATABASE-----------------------------
 
 # Load environment variables from Streamlit secrets
@@ -54,9 +59,6 @@ def local_css(file_name):
 # Apply custom CSS
 local_css("style.css")
 
-#---------PAGE CONFIGURATION--------------------------------------------------------------
-# Set page configuration to use wide layout
-st.set_page_config(layout="wide")
 
 #------------FUNCTIONS FOR EACH PAGE--------------------------------------------
 
