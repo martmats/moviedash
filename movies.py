@@ -220,8 +220,7 @@ if st.session_state.menu == "Trendy Films":
     <p>Your ultimate source for the latest and greatest films!<br> Grab your popcorn and dive into today's top picks, discover fascinating movie facts,<br> and easily find your favourite films with our advanced filters.</p>
     </div>
     """, unsafe_allow_html=True)
-Your ultimate source for the latest and greatest films!
-Grab your popcorn and dive into today's top picks, discover fascinating movie facts, and easily find your favourite films with our advanced filters.
+
 # Today's Hot Pick Section 
 
     st.header("Today's Popping Hot Picks 🍿")
