@@ -58,7 +58,7 @@ movies_df = load_data()
 # Transform the loaded data
 movies_df = transform_data(movies_df)
 
---------------------------------------------
+
 # Load custom CSS
 def local_css(file_name):
     with open(file_name) as f:
