@@ -37,20 +37,28 @@ def get_connection():
 # Load data from the PostgreSQL database
 @st.cache_data
 def load_data():
-    conn = get_connection()
-    if conn is None:
-        return pd.DataFrame()
-    query = "SELECT * FROM movies"
-    df = pd.read_sql(query, conn)
-    conn.close()
-    # Ensure the release_date is in datetime format
-    df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
-    df['year'] = df['release_date'].dt.year
-    return df
+  conn = get_connection()
+  if conn is None:
+    return pd.DataFrame()
+  query = "SELECT * FROM movies"
+  df = pd.read_sql(query, conn)
+  conn.close()
+  return df
 
+def transform_data(df):
+  # Ensure the release_date is in datetime format
+  df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
+  # Extract year from release_date
+  df['year'] = df['release_date'].dt.year
+  return df
+
+# Load the data
 movies_df = load_data()
 
+# Transform the loaded data
+movies_df = transform_data(movies_df)
 
+--------------------------------------------
 # Load custom CSS
 def local_css(file_name):
     with open(file_name) as f:
@@ -660,7 +668,7 @@ elif st.session_state.menu == "Interesting facts":
 
     movies_df['season'] = movies_df['release_month'].apply(get_season)
 
-    # Function to format genres for filtering and create a new column with formated genred (avoid NaN Error)
+    # Function to format genres for filtering and create a new column with formated genre (avoid NaN Error)
     def format_genres(genres):
         if isinstance(genres, list):
             return genres
