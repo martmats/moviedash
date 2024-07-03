@@ -43,6 +43,7 @@ def load_data():
     query = "SELECT * FROM movies"
     df = pd.read_sql(query, conn)
     conn.close()
+    
     # Ensure the release_date is in datetime format
     df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
     df['year'] = df['release_date'].dt.year
