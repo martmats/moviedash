@@ -643,7 +643,7 @@ elif st.session_state.menu == "Interesting facts":
 
 # GRAPHIC 4: Release Rate, Season and Genre with Filter Option
 
-    # Extract month and year from release_date
+    # Extract month and year from release_date and create two more columns (month, year)
     movies_df['release_month'] = movies_df['release_date'].dt.month
     movies_df['release_year'] = movies_df['release_date'].dt.year
 
@@ -660,7 +660,7 @@ elif st.session_state.menu == "Interesting facts":
 
     movies_df['season'] = movies_df['release_month'].apply(get_season)
 
-    # Function to format genres for filtering
+    # Function to format genres for filtering and create a new column with formated genred (avoid NaN Error)
     def format_genres(genres):
         if isinstance(genres, list):
             return genres
@@ -688,7 +688,7 @@ elif st.session_state.menu == "Interesting facts":
             filtered_df = movies_df[movies_df['season'].isin(selected_seasons)]
 
     elif filter_option == "Year":
-        selected_years = st.multiselect("Select Year(s)", sorted(movies_df['release_year'].unique()))
+        selected_years = st.multiselect("Select Year(s)", sorted(movies_df['release_year'].unique())) # Choose more than one year
         if selected_years:
             filtered_df = movies_df[movies_df['release_year'].isin(selected_years)]
 
@@ -696,12 +696,12 @@ elif st.session_state.menu == "Interesting facts":
     st.subheader("Monthly Film Releases, Ratings, and Genres Distribution")
     col1, col2, col3 = st.columns(3)
 
-    monthly_release_count = filtered_df.groupby('release_month').size().reset_index(name='count')
+    monthly_release_count = filtered_df.groupby('release_month').size().reset_index(name='count_release_month')
     monthly_release_avg_rating = filtered_df.groupby('release_month')['vote_average'].mean().reset_index(name='average_rating')
-    monthly_genre_distribution = filtered_df.explode('formatted_genres').groupby(['release_month', 'formatted_genres']).size().reset_index(name='count')
+    monthly_genre_distribution = filtered_df.explode('formatted_genres').groupby(['release_month', 'formatted_genres']).size().reset_index(name='count_genre')
 
     with col1:
-        fig = px.bar(monthly_release_count, x='release_month', y='count', title='Number of Films Released Each Month')
+        fig = px.bar(monthly_release_count, x='release_month', y='count_release_month', title='Number of Films Released Each Month')
         fig.update_layout(xaxis_title='Month', yaxis_title='Number of Films')
         st.plotly_chart(fig)
 
@@ -711,7 +711,7 @@ elif st.session_state.menu == "Interesting facts":
         st.plotly_chart(fig)
 
     with col3:
-        fig = px.bar(monthly_genre_distribution, x='release_month', y='count', color='formatted_genres', title='Genre Distribution Each Month')
+        fig = px.bar(monthly_genre_distribution, x='release_month', y='count_genre', color='formatted_genres', title='Genre Distribution Each Month')
         fig.update_layout(xaxis_title='Month', yaxis_title='Count', barmode='stack')
         st.plotly_chart(fig)
 
@@ -719,12 +719,12 @@ elif st.session_state.menu == "Interesting facts":
     st.subheader("Seasonal Film Releases, Ratings, and Genres Distribution")
     col1, col2, col3 = st.columns(3)
 
-    seasonal_release_count = filtered_df.groupby('season').size().reset_index(name='count')
+    seasonal_release_count = filtered_df.groupby('season').size().reset_index(name='count_season')
     seasonal_release_avg_rating = filtered_df.groupby('season')['vote_average'].mean().reset_index(name='average_rating')
-    seasonal_genre_distribution = filtered_df.explode('formatted_genres').groupby(['season', 'formatted_genres']).size().reset_index(name='count')
+    seasonal_genre_distribution = filtered_df.explode('formatted_genres').groupby(['season', 'formatted_genres']).size().reset_index(name='count_genre')
 
     with col1:
-        fig = px.bar(seasonal_release_count, x='season', y='count', title='Number of Films Released Each Season')
+        fig = px.bar(seasonal_release_count, x='season', y='count_season', title='Number of Films Released Each Season')
         fig.update_layout(xaxis_title='Season', yaxis_title='Number of Films')
         st.plotly_chart(fig)
 
@@ -734,6 +734,6 @@ elif st.session_state.menu == "Interesting facts":
         st.plotly_chart(fig)
 
     with col3:
-        fig = px.bar(seasonal_genre_distribution, x='season', y='count', color='formatted_genres', title='Genre Distribution Each Season')
+        fig = px.bar(seasonal_genre_distribution, x='season', y='count_genre', color='formatted_genres', title='Genre Distribution Each Season')
         fig.update_layout(xaxis_title='Season', yaxis_title='Count', barmode='stack')
         st.plotly_chart(fig)
