@@ -60,6 +60,7 @@ MovieDash is a Streamlit web application designed to help you discover the lates
   - Special Prompt to help you to build your movie app resolving all your doubts
 
 
+
 ## 🚀 Getting Started
 
 1. Clone the repository:
