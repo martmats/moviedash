@@ -22,37 +22,32 @@ db_name = st.secrets["DB_NAME"]
 
 # Connect to the PostgreSQL database
 def get_connection():
-  try:
-    return psycopg2.connect(
-      database=db_name,
-      user=db_username,
-      password=db_password,
-      host=db_host,
-      port=db_port
-    )
-  except Exception as e:
-    st.error(f"Error connecting to database: {e}")
-    return None
-
-def transform_data(df):
-  # Ensure the release_date is in datetime format
-  df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
-  # Extract year from release_date
-  df['year'] = df['release_date'].dt.year
-  return df
+    try:
+        return psycopg2.connect(
+            database=db_name,
+            user=db_username,
+            password=db_password,
+            host=db_host,
+            port=db_port
+        )
+    except Exception as e:
+        st.error(f"Error connecting to database: {e}")
+        return None
 
 # Load data from the PostgreSQL database
 @st.cache_data
 def load_data():
-  conn = get_connection()
-  if conn is None:
-    return pd.DataFrame()
-  query = "SELECT * FROM movies"
-  df = pd.read_sql(query, conn)
-  conn.close()
-  return transform_data(df)  # Call transform_data here
+    conn = get_connection()
+    if conn is None:
+        return pd.DataFrame()
+    query = "SELECT * FROM movies"
+    df = pd.read_sql(query, conn)
+    conn.close()
+    # Ensure the release_date is in datetime format
+    df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
+    df['year'] = df['release_date'].dt.year
+    return df
 
-# Load the data (now with transformation)
 movies_df = load_data()
 
 #-------------STYLE CSS-------------------------------------------------------
