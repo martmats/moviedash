@@ -22,17 +22,24 @@ db_name = st.secrets["DB_NAME"]
 
 # Connect to the PostgreSQL database
 def get_connection():
-    try:
-        return psycopg2.connect(
-            database=db_name,
-            user=db_username,
-            password=db_password,
-            host=db_host,
-            port=db_port
-        )
-    except Exception as e:
-        st.error(f"Error connecting to database: {e}")
-        return None
+  try:
+    return psycopg2.connect(
+      database=db_name,
+      user=db_username,
+      password=db_password,
+      host=db_host,
+      port=db_port
+    )
+  except Exception as e:
+    st.error(f"Error connecting to database: {e}")
+    return None
+
+def transform_data(df):
+  # Ensure the release_date is in datetime format
+  df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
+  # Extract year from release_date
+  df['year'] = df['release_date'].dt.year
+  return df
 
 # Load data from the PostgreSQL database
 @st.cache_data
@@ -43,21 +50,12 @@ def load_data():
   query = "SELECT * FROM movies"
   df = pd.read_sql(query, conn)
   conn.close()
-  return df
+  return transform_data(df)  # Call transform_data here
 
-def transform_data(df):
-  # Ensure the release_date is in datetime format
-  df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
-  # Extract year from release_date
-  df['year'] = df['release_date'].dt.year
-  return df
-
-# Load the data
+# Load the data (now with transformation)
 movies_df = load_data()
 
-# Transform the loaded data
-movies_df = transform_data(movies_df)
-
+#-------------STYLE CSS-------------------------------------------------------
 
 # Load custom CSS
 def local_css(file_name):
