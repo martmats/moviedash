@@ -282,7 +282,7 @@ if st.session_state.menu == "Trendy Films":
     if not weekly_movies.empty:
         st.markdown('<div class="movies-container">', unsafe_allow_html=True)
         for index, movie in weekly_movies.iterrows():
-            display_movie_card(movie)
+            display_films_in_rows(movie)
         st.markdown('</div>', unsafe_allow_html=True)
     else:
         st.write("No movies released in the last week.")
@@ -293,7 +293,7 @@ if st.session_state.menu == "Trendy Films":
     if not monthly_movies.empty:
         st.markdown('<div class="movies-container">', unsafe_allow_html=True)
         for index, movie in monthly_movies.iterrows():
-            display_movie_card(movie)
+            display_films_in_rows(movie)
         st.markdown('</div>', unsafe_allow_html=True)
     else:
         st.write("No movies released in the last month.")
