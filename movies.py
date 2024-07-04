@@ -270,23 +270,7 @@ if st.session_state.menu == "Trendy Films":
 
 
 #-----------------------------------try to put in boxes the weekly section------------------------------
-    st.header("Weekly and monthly's Popping Hot Picks 🍿")
-    st.markdown(f"Discover the top movies released Today (<strong>{today_date}</strong>), freshly popped just for you!", unsafe_allow_html=True)
-    st.markdown('<div class="movies-container">', unsafe_allow_html=True)
-
-    # Filter selection
-    period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
-    
-    # Get the trendy films based on the selected period
-    top_trendy_films = get_trendy_films(period)
-    
-    # Display the trendy films
-    st.write("Top Trendy Films for the selected period:")
-    st.dataframe(top_trendy_films)
-    
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-#-------------------------------------------------------------------------------------------    
+today_date = pd.to_datetime('today').strftime('%Y-%m-%d')
 # Weekly Hotpicks Section
 
     st.markdown("""
@@ -295,13 +279,39 @@ if st.session_state.menu == "Trendy Films":
         <p>Catch the latest and greatest films hitting your screens this week!</p>
         <div class="movies-container">
     """, unsafe_allow_html=True)
-    st.markdown('<div class="movies-container">', unsafe_allow_html=True)   
+ 
     
     # Close the div
     st.markdown("""
         </div>
     </div>
     """, unsafe_allow_html=True)
+
+# Filter selection
+period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
+
+# Get the trendy films based on the selected period
+top_trendy_films = get_trendy_films(period)
+
+# Display the trendy films as cards
+st.markdown('<div class="movies-container">', unsafe_allow_html=True)
+
+for index, row in top_trendy_films.iterrows():
+    st.markdown(f"""
+    <div class="movie-card">
+        <img src="{row['poster_url']}" alt="{row['title']} poster">
+        <div class="movie-info">
+            <h4>{row['title']}</h4>
+            <p>Release Date: {row['release_date'].strftime('%Y-%m-%d')}</p>
+            <p class="rating">{row['vote_count']}</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown('</div>', unsafe_allow_html=True)
+    
+#-------------------------------------------------------------------------------------------    
+
 #-------------------------------------
 
 
