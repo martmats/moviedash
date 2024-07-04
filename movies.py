@@ -267,17 +267,11 @@ if st.session_state.menu == "Trendy Films":
         display_films_in_rows(trendy_films_today)
 
     st.markdown('</div>', unsafe_allow_html=True)
-    
-    
-# Weekly Hotpicks Section
+#-----------------------------------try to put in boxes the weekly section------------------------------
+    st.header("Weekly and monthly's Popping Hot Picks 🍿")
+    st.markdown(f"Discover the top movies released Today (<strong>{today_date}</strong>), freshly popped just for you!", unsafe_allow_html=True)
+    st.markdown('<div class="movies-container">', unsafe_allow_html=True)
 
-    st.markdown("""
-    <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
-        <h2>This Week's Must-Watch Popcorn Flicks 🎥</h2>
-        <p>Catch the latest and greatest films hitting your screens this week!</p>
-        <div class="movies-container">
-    """, unsafe_allow_html=True)
-    st.markdown('<div class="movies-container">', unsafe_allow_html=True)   
     # Filter selection
     period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
     
@@ -287,6 +281,19 @@ if st.session_state.menu == "Trendy Films":
     # Display the trendy films
     st.write("Top Trendy Films for the selected period:")
     st.dataframe(top_trendy_films)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+    
+#-------------------------------------------------------------------------------------------    
+# Weekly Hotpicks Section
+
+    st.markdown("""
+    <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
+        <h2>This Week's Must-Watch Popcorn Flicks 🎥</h2>
+        <p>Catch the latest and greatest films hitting your screens this week!</p>
+        <div class="movies-container">
+    """, unsafe_allow_html=True)
+    st.markdown('<div class="movies-container">', unsafe_allow_html=True)   
     
     # Close the div
     st.markdown("""
