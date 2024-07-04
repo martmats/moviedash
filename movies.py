@@ -105,27 +105,32 @@ def format_date(date_str):
 def format_rating(rating):
     return f"{rating:.1f} stars" if rating else "N/A"
 
-# Function to get trendy films for the week
-def get_trendy_films_week():
+# Function to get trendy films for the week and for the month
+def get_trendy_films(period='week'):
     today = pd.to_datetime('today').normalize()
-    start_of_last_week = today - pd.Timedelta(days=today.weekday() + 7)
-    end_of_last_week = start_of_last_week + pd.Timedelta(days=6)
     
-    # Filter films released in the past week
-    trendy_films = movies_df[(movies_df['release_date'] >= start_of_last_week) & (movies_df['release_date'] <= end_of_last_week)]
+    if period == 'week':
+        start_of_last_week = today - pd.Timedelta(days=today.weekday() + 7)
+        end_of_last_week = start_of_last_week + pd.Timedelta(days=6)
+        
+        # Filter films released in the past week
+        trendy_films = movies_df[(movies_df['release_date'] >= start_of_last_week) & (movies_df['release_date'] <= end_of_last_week)]
+    
+    elif period == 'month':
+        start_of_month = today.replace(day=1)
+        end_of_last_day = today  # up to today
+        
+        # Filter films released in the current month up to today
+        trendy_films = movies_df[(movies_df['release_date'] >= start_of_month) & (movies_df['release_date'] < end_of_last_day)]
+    
+    else:
+        raise ValueError("Invalid period. Please use 'week' or 'month'.")
     
     # Sort by vote_count and select top 10 Popular Films (vote_count)
     top_trendy_films = trendy_films.sort_values(by='vote_count', ascending=False).head(10)
     
     return top_trendy_films
 
-# Function to get trendy films for the month (make sure are the ones before today)
-def get_trendy_films_month():
-    today = pd.to_datetime('today').normalize()
-    start_of_month = today.replace(day=1)
-    end_of_month = (start_of_month + pd.DateOffset(months=1)) - pd.Timedelta(days=1)
-    trendy_films = movies_df[(movies_df['release_date'] >= start_of_month) & (movies_df['release_date'] <= end_of_month)]
-    return trendy_films
 
 # Function to format genres
 def format_genres(genres):
@@ -272,7 +277,19 @@ if st.session_state.menu == "Trendy Films":
         <p>Catch the latest and greatest films hitting your screens this week!</p>
         <div class="movies-container">
     """, unsafe_allow_html=True)
+----------------------------------------------------
 
+# Filter selection
+period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
+
+# Get the trendy films based on the selected period
+top_trendy_films = get_trendy_films(period)
+
+# Display the trendy films
+st.write("Top Trendy Films for the selected period:")
+st.dataframe(top_trendy_films)
+
+-------------------------------------
     # Fetch and display the trendy films for the week
     trendy_films_week = get_trendy_films_week()
     if trendy_films_week.empty:
