@@ -105,31 +105,21 @@ def format_date(date_str):
 def format_rating(rating):
     return f"{rating:.1f} stars" if rating else "N/A"
 
-# Function to get trendy films for the week and for the month
-def get_trendy_films(period='week'):
+# Function to get movies released in the last week
+def get_weekly_movies():
     today = pd.to_datetime('today').normalize()
-    
-    if period == 'week':
-        start_of_last_week = today - pd.Timedelta(days=today.weekday() + 7)
-        end_of_last_week = start_of_last_week + pd.Timedelta(days=6)
-        
-        # Filter films released in the past week
-        trendy_films = movies_df[(movies_df['release_date'] >= start_of_last_week) & (movies_df['release_date'] <= end_of_last_week)]
-    
-    elif period == 'month':
-        start_of_month = today.replace(day=1)
-        end_of_last_day = today  # up to today
-        
-        # Filter films released in the current month up to today
-        trendy_films = movies_df[(movies_df['release_date'] >= start_of_month) & (movies_df['release_date'] < end_of_last_day)]
-    
-    else:
-        raise ValueError("Invalid period. Please use 'week' or 'month'.")
-    
-    # Sort by vote_count and select top 10 Popular Films (vote_count)
-    top_trendy_films = trendy_films.sort_values(by='vote_count', ascending=False).head(10)
-    
-    return top_trendy_films
+    last_week = today - timedelta(days=7)
+    movies_df['release_date'] = pd.to_datetime(movies_df['release_date']).dt.normalize()
+    weekly_movies = movies_df[(movies_df['release_date'] > last_week) & (movies_df['release_date'] <= today)]
+    return weekly_movies.head(10)
+
+# Function to get movies released in the last month
+def get_monthly_movies():
+    today = pd.to_datetime('today').normalize()
+    last_month = today - timedelta(days=30)
+    movies_df['release_date'] = pd.to_datetime(movies_df['release_date']).dt.normalize()
+    monthly_movies = movies_df[(movies_df['release_date'] > last_month) & (movies_df['release_date'] <= today)]
+    return monthly_movies.head(10)
 
 # Function to format genres
 def format_genres(genres):
@@ -277,7 +267,7 @@ if st.session_state.menu == "Trendy Films":
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
         <h2>This Week's Must-Watch Popcorn Flicks 🎥</h2>
         <p>Catch the latest and greatest films hitting your screens this week!</p>
-        <div class="movies-container">
+
     """, unsafe_allow_html=True)
  
     
@@ -286,29 +276,27 @@ if st.session_state.menu == "Trendy Films":
         </div>
     </div>
     """, unsafe_allow_html=True)
-
-    # Filter selection
-    period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
+    # Displaying Weekly Movies
+    st.subheader("Top 10 Weekly Movies")
+    weekly_movies = get_weekly_movies()
+    if not weekly_movies.empty:
+        st.markdown('<div class="movies-container">', unsafe_allow_html=True)
+        for index, movie in weekly_movies.iterrows():
+            display_movie_card(movie)
+        st.markdown('</div>', unsafe_allow_html=True)
+    else:
+        st.write("No movies released in the last week.")
     
-    # Get the trendy films based on the selected period
-    top_trendy_films = get_trendy_films(period)
-    
-    # Display the trendy films as cards
-    st.markdown('<div class="movies-container">', unsafe_allow_html=True)
-    
-    for index, row in top_trendy_films.iterrows():
-        st.markdown(f"""
-        <div class="movie-card">
-            <img src="{row['poster_url']}" alt="{row['title']} poster">
-            <div class="movie-info">
-                <h4>{row['title']}</h4>
-                <p>Release Date: {row['release_date'].strftime('%Y-%m-%d')}</p>
-                <p class="rating">{row['vote_count']}</p>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Displaying Monthly Movies
+    st.subheader("Top 10 Monthly Movies")
+    monthly_movies = get_monthly_movies()
+    if not monthly_movies.empty:
+        st.markdown('<div class="movies-container">', unsafe_allow_html=True)
+        for index, movie in monthly_movies.iterrows():
+            display_movie_card(movie)
+        st.markdown('</div>', unsafe_allow_html=True)
+    else:
+        st.write("No movies released in the last month.")
     
 #-------------------------------------------------------------------------------------------    
 
