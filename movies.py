@@ -471,7 +471,7 @@ if st.session_state.menu == "Streaming Options":
     # Title of this section
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
-        <h2>Popcorn Fun Fact 💡</h2>
+        <h2>Popcorn Fun Fact </h2>
         <p>Explore interesting bites from our Providers.</p>
         <div class="movies-container">
     """, unsafe_allow_html=True)    
