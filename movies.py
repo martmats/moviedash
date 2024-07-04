@@ -314,7 +314,7 @@ if st.session_state.menu == "Trendy Films":
     </div>
     """, unsafe_allow_html=True)
     
-    if not trendy_films_week.empty:
+    if not top_trendy_films.empty:
         col1, col2 = st.columns(2)
 
         with col1:
