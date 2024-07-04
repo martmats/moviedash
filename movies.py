@@ -271,28 +271,28 @@ if st.session_state.menu == "Trendy Films":
     
 # Weekly Hotpicks Section
 
-st.markdown("""
-<div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
-    <h2>This Week's Must-Watch Popcorn Flicks 🎥</h2>
-    <p>Catch the latest and greatest films hitting your screens this week!</p>
-    <div class="movies-container">
-""", unsafe_allow_html=True)
-
-# Filter selection
-period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
-
-# Get the trendy films based on the selected period
-top_trendy_films = get_trendy_films(period)
-
-# Display the trendy films
-st.write("Top Trendy Films for the selected period:")
-st.dataframe(top_trendy_films)
-
-# Close the div
-st.markdown("""
+    st.markdown("""
+    <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
+        <h2>This Week's Must-Watch Popcorn Flicks 🎥</h2>
+        <p>Catch the latest and greatest films hitting your screens this week!</p>
+        <div class="movies-container">
+    """, unsafe_allow_html=True)
+    
+    # Filter selection
+    period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
+    
+    # Get the trendy films based on the selected period
+    top_trendy_films = get_trendy_films(period)
+    
+    # Display the trendy films
+    st.write("Top Trendy Films for the selected period:")
+    st.dataframe(top_trendy_films)
+    
+    # Close the div
+    st.markdown("""
+        </div>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 #-------------------------------------
 
 
