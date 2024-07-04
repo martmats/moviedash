@@ -277,7 +277,7 @@ if st.session_state.menu == "Trendy Films":
         <p>Catch the latest and greatest films hitting your screens this week!</p>
         <div class="movies-container">
     """, unsafe_allow_html=True)
-----------------------------------------------------
+#----------------------------------------------------
 
     # Filter selection
     period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
@@ -289,7 +289,7 @@ if st.session_state.menu == "Trendy Films":
     st.write("Top Trendy Films for the selected period:")
     st.dataframe(top_trendy_films)
 
--------------------------------------
+#-------------------------------------
     # Fetch and display the trendy films for the week
     trendy_films_week = get_trendy_films_week()
     if trendy_films_week.empty:
