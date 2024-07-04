@@ -307,7 +307,7 @@ if st.session_state.menu == "Trendy Films":
 
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
-        <h2>Popcorn Fun Fact 🌟</h2>
+        <h2>Popcorn Fun Fact </h2>
         <p>Explore genres distribution in this week's and this month's must-watch movies.</p>
         <div class="movies-container">
     """, unsafe_allow_html=True)    
