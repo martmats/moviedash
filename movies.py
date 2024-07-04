@@ -309,60 +309,36 @@ if st.session_state.menu == "Trendy Films":
     </div>
     """, unsafe_allow_html=True)
     #--------------------------------------------------------------------------------------------------------------------------------
-    # Create a radio button for the user to select between Week and Month
-    
-
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
-    <h2>selection = st.radio("Select time frame", ("Week", "Month"))</h2>
-    <div class="movies-container">
+        <h2>Pick Your Popcorn Flicks 🎥</h2>
+        <p>Select between this week's and this month's must-watch movies!</p>
+        <div class="movies-container">
     """, unsafe_allow_html=True)
     
-    # Display the appropriate section based on user selection
-    if selection == "Week":
-        st.markdown("""
-        <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
-            <h2>This Week's Must-Watch Popcorn Flicks 🎥</h2>
-            <p>Catch the latest and greatest films hitting your screens this week!</p>
-            <div class="movies-container">
-        """, unsafe_allow_html=True)
+    # Selection box for week or month
+    selection = st.selectbox("Select time frame", ["This Week", "This Month"])
     
-        # Fetch and display the trendy films for the week
-        trendy_films_week = get_trendy_films_week()
-        if trendy_films_week.empty:
-            st.write("No trendy films for this week.")
-        else:
-            # Sort films by vote count in descending order and select top 10
-            trendy_films_week = trendy_films_week.sort_values(by=['vote_count'], ascending=[False])
-            display_films_in_rows(trendy_films_week)
-    
-        # Close the div
-        st.markdown("""
-            </div>
+    # Close the div
+    st.markdown("""
         </div>
-        """, unsafe_allow_html=True)
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Fetch and display the trendy films based on user selection
+    if selection == "This Week":
+        st.markdown("<h2>This Week's Must-Watch Popcorn Flicks 🎥</h2>", unsafe_allow_html=True)
+        trendy_films = get_trendy_films_week()
     else:
-        st.markdown("""
-        <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
-            <h2>This Month's Popcorn Picks: Must-Watch Movies 🍿</h2>
-            <p>Catch the latest and greatest films hitting your screens this month!</p>
-            <div class="movies-container">
-        """, unsafe_allow_html=True)
+        st.markdown("<h2>This Month's Must-Watch Popcorn Flicks 🍿</h2>", unsafe_allow_html=True)
+        trendy_films = get_trendy_films_month()
     
-        # Fetch and display the trendy films for the month
-        trendy_films_month = get_trendy_films_month()
-        if trendy_films_month.empty:
-            st.write("No trendy films for this month.")
-        else:
-            # Sort films by vote count in descending order and select top 10
-            trendy_films_month = trendy_films_month.sort_values(by=['vote_count'], ascending=[False])
-            display_films_in_rows(trendy_films_month)
-    
-        # Close the div
-        st.markdown("""
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+    if trendy_films.empty:
+        st.write(f"No trendy films for {selection.lower()}.")
+    else:
+        # Sort films by vote count in descending order and select top 10
+        trendy_films = trendy_films.sort_values(by=['vote_count'], ascending=[False])
+        display_films_in_rows(trendy_films)
     #--------------------------------------------------------------------------------------------------------------------------------
     
 # Interesting Facts section
