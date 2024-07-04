@@ -279,15 +279,15 @@ if st.session_state.menu == "Trendy Films":
     """, unsafe_allow_html=True)
 ----------------------------------------------------
 
-# Filter selection
-period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
-
-# Get the trendy films based on the selected period
-top_trendy_films = get_trendy_films(period)
-
-# Display the trendy films
-st.write("Top Trendy Films for the selected period:")
-st.dataframe(top_trendy_films)
+    # Filter selection
+    period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
+    
+    # Get the trendy films based on the selected period
+    top_trendy_films = get_trendy_films(period)
+    
+    # Display the trendy films
+    st.write("Top Trendy Films for the selected period:")
+    st.dataframe(top_trendy_films)
 
 -------------------------------------
     # Fetch and display the trendy films for the week
