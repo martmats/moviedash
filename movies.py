@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import psycopg2
-from datetime import datetime, timedelta
+from datetime import datetime
 import plotly.express as px
 import plotly.graph_objects as go
 from PIL import Image
@@ -43,7 +43,6 @@ def load_data():
     query = "SELECT * FROM movies"
     df = pd.read_sql(query, conn)
     conn.close()
-    
     # Ensure the release_date is in datetime format
     df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
     df['year'] = df['release_date'].dt.year
@@ -51,7 +50,6 @@ def load_data():
 
 movies_df = load_data()
 
-#-------------STYLE CSS-------------------------------------------------------
 
 # Load custom CSS
 def local_css(file_name):
@@ -105,21 +103,27 @@ def format_date(date_str):
 def format_rating(rating):
     return f"{rating:.1f} stars" if rating else "N/A"
 
-# Function to get movies released in the last week
-def get_weekly_movies():
+# Function to get trendy films for the week
+def get_trendy_films_week():
     today = pd.to_datetime('today').normalize()
-    last_week = today - timedelta(days=7)
-    movies_df['release_date'] = pd.to_datetime(movies_df['release_date']).dt.normalize()
-    weekly_movies = movies_df[(movies_df['release_date'] > last_week) & (movies_df['release_date'] <= today)]
-    return weekly_movies.head(10)
+    start_of_last_week = today - pd.Timedelta(days=today.weekday() + 7)
+    end_of_last_week = start_of_last_week + pd.Timedelta(days=6)
+    
+    # Filter films released in the past week
+    trendy_films = movies_df[(movies_df['release_date'] >= start_of_last_week) & (movies_df['release_date'] <= end_of_last_week)]
+    
+    # Sort by vote_count and select top 10 Popular Films (vote_count)
+    top_trendy_films = trendy_films.sort_values(by='vote_count', ascending=False).head(10)
+    
+    return top_trendy_films
 
-# Function to get movies released in the last month
-def get_monthly_movies():
+# Function to get trendy films for the month (make sure are the ones before today)
+def get_trendy_films_month():
     today = pd.to_datetime('today').normalize()
-    last_month = today - timedelta(days=30)
-    movies_df['release_date'] = pd.to_datetime(movies_df['release_date']).dt.normalize()
-    monthly_movies = movies_df[(movies_df['release_date'] > last_month) & (movies_df['release_date'] <= today)]
-    return monthly_movies.head(10)
+    start_of_month = today.replace(day=1)
+    end_of_month = (start_of_month + pd.DateOffset(months=1)) - pd.Timedelta(days=1)
+    trendy_films = movies_df[(movies_df['release_date'] >= start_of_month) & (movies_df['release_date'] <= end_of_month)]
+    return trendy_films
 
 # Function to format genres
 def format_genres(genres):
@@ -256,58 +260,38 @@ if st.session_state.menu == "Trendy Films":
         display_films_in_rows(trendy_films_today)
 
     st.markdown('</div>', unsafe_allow_html=True)
-
-
-
-#-----------------------------------try to put in boxes the weekly section------------------------------
-    today_date = pd.to_datetime('today').strftime('%Y-%m-%d')
+    
+    
 # Weekly Hotpicks Section
 
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
         <h2>This Week's Must-Watch Popcorn Flicks 🎥</h2>
         <p>Catch the latest and greatest films hitting your screens this week!</p>
-
+        <div class="movies-container">
     """, unsafe_allow_html=True)
- 
-    
+
+    # Fetch and display the trendy films for the week
+    trendy_films_week = get_trendy_films_week()
+    if trendy_films_week.empty:
+        st.write("No trendy films for this week.")
+    else:
+        # Sort films by vote count in descending order and select top 10
+        trendy_films_week = trendy_films_week.sort_values(by=['vote_count'], ascending=[False])
+        display_films_in_rows(trendy_films_week)
+
     # Close the div
     st.markdown("""
-
-#-------------------------------------------------------------------------------------------    
-       # Streamlit app
-    st.title("Top Rated Films")
-    
-    # Sidebar for user selection
-    view_option = st.sidebar.selectbox("Select Period", ["Weekly", "Monthly"])
-    
-    # Display top rated films based on user selection
-    if view_option == "Weekly":
-        top_movies = get_top_rated_movies('weekly')
-    else:
-        top_movies = get_top_rated_movies('monthly')
-    
-    # Section Header
-    st.header(f"Top 10 Most Rated Films ({view_option}) 🍿")
-    
-    # Displaying the films
-    st.markdown('<div class="movies-container">', unsafe_allow_html=True)
-    if top_movies.empty:
-        st.write(f"No top rated films for the selected period ({view_option}).")
-    else:
-        display_films_in_rows(top_movies)
-    st.markdown('</div>', unsafe_allow_html=True)
-#-------------------------------------
-
-
-
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     
 # Interesting Facts section
 
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
-        <h2>Popcorn Fun Fact </h2>
+        <h2>Popcorn Fun Fact 💡</h2>
         <p>Explore genres distribution in this week's and this month's must-watch movies.</p>
         <div class="movies-container">
     """, unsafe_allow_html=True)    
@@ -317,7 +301,7 @@ if st.session_state.menu == "Trendy Films":
     </div>
     """, unsafe_allow_html=True)
     
-    if not top_trendy_films.empty:
+    if not trendy_films_week.empty:
         col1, col2 = st.columns(2)
 
         with col1:
