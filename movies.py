@@ -295,7 +295,7 @@ if st.session_state.menu == "Trendy Films":
         trendy_films = trendy_films.sort_values(by=['vote_count'], ascending=[False])
         display_films_in_rows(trendy_films)
     
-    # Interesting Facts section
+    # Fun Facts Section
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
         <h2>Popcorn Fun Fact 💡</h2>
@@ -466,7 +466,7 @@ if st.session_state.menu == "Streaming Options":
                     </div>
                     """, unsafe_allow_html=True)
 
-    # Title of this section
+    # Headline for Fun Fact Filter Section
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
         <h2>Popcorn Fun Fact </h2>
@@ -479,7 +479,7 @@ if st.session_state.menu == "Streaming Options":
     </div>
     """, unsafe_allow_html=True)
 
-    # Create some graphs about providers
+    # Create some graphs about providers - Fun Fact Filter Section
     col1, col2 = st.columns(2)
 
     with col1:
@@ -549,7 +549,7 @@ if st.session_state.menu == "Streaming Options":
         st.plotly_chart(fig_bar_popularity)
 
 
-# INTERESTING FACT SECTION------------------------------------------------------------------------------------------------------------------------
+# -------------INTERESTING FACTS SECTION----------------------------------------------------------
 
 elif st.session_state.menu == "Interesting facts":
     st.title("Film Release Trends Over Time")
@@ -559,7 +559,6 @@ elif st.session_state.menu == "Interesting facts":
     movies_df = load_data()
     
 # GRAPHIC 1: Number of films released each year from 2010 to the present
-
     
     # Filter data from 2010 onwards
     movies_df['release_date'] = pd.to_datetime(movies_df['release_date'])
