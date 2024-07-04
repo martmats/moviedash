@@ -289,21 +289,15 @@ if st.session_state.menu == "Trendy Films":
     st.write("Top Trendy Films for the selected period:")
     st.dataframe(top_trendy_films)
 
-#-------------------------------------
-    # Fetch and display the trendy films for the week
-    trendy_films_week = get_trendy_films_week()
-    if trendy_films_week.empty:
-        st.write("No trendy films for this week.")
-    else:
-        # Sort films by vote count in descending order and select top 10
-        trendy_films_week = trendy_films_week.sort_values(by=['vote_count'], ascending=[False])
-        display_films_in_rows(trendy_films_week)
-
     # Close the div
     st.markdown("""
         </div>
     </div>
     """, unsafe_allow_html=True)
+#-------------------------------------
+
+
+
 
     
 # Interesting Facts section
