@@ -272,7 +272,7 @@ if st.session_state.menu == "Trendy Films":
     """, unsafe_allow_html=True)
     
     # Selection box for week or month
-    selection = st.selectbox("<h2>Select Here</h2>", ["This Week", "This Month"])
+    selection = st.selectbox("", ["This Week", "This Month"])
     
     # Close the div
     st.markdown("""
