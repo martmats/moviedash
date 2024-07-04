@@ -273,50 +273,13 @@ if st.session_state.menu == "Trendy Films":
     
     # Close the div
     st.markdown("""
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    # Displaying Weekly Movies
-    st.subheader("Top 10 Weekly Movies")
-    weekly_movies = get_weekly_movies()
-    if not weekly_movies.empty:
-        st.markdown('<div class="movies-container">', unsafe_allow_html=True)
-        for index, movie in weekly_movies.iterrows():
-            display_films_in_rows(movie)
-        st.markdown('</div>', unsafe_allow_html=True)
-    else:
-        st.write("No movies released in the last week.")
-    
-    # Displaying Monthly Movies
-    st.subheader("Top 10 Monthly Movies")
-    monthly_movies = get_monthly_movies()
-    if not monthly_movies.empty:
-        st.markdown('<div class="movies-container">', unsafe_allow_html=True)
-        for index, movie in monthly_movies.iterrows():
-            display_films_in_rows(movie)
-        st.markdown('</div>', unsafe_allow_html=True)
-    else:
-        st.write("No movies released in the last month.")
-    
+
 #-------------------------------------------------------------------------------------------    
-    # Streamlit app
+       # Streamlit app
     st.title("Top Rated Films")
     
     # Sidebar for user selection
     view_option = st.sidebar.selectbox("Select Period", ["Weekly", "Monthly"])
-    
-    # Function to get the most rated movies of the week or month
-    def get_top_rated_movies(period='weekly'):
-        today = pd.to_datetime('today').normalize()
-        if period == 'weekly':
-            last_period = today - timedelta(days=7)
-        else:
-            last_period = today - timedelta(days=30)
-    
-        movies_df['release_date'] = pd.to_datetime(movies_df['release_date']).dt.normalize()
-        period_movies = movies_df[(movies_df['release_date'] > last_period) & (movies_df['release_date'] <= today)]
-        top_rated_movies = period_movies.sort_values(by='vote_count', ascending=False).head(10)
-        return top_rated_movies
     
     # Display top rated films based on user selection
     if view_option == "Weekly":
@@ -324,11 +287,16 @@ if st.session_state.menu == "Trendy Films":
     else:
         top_movies = get_top_rated_movies('monthly')
     
-    # Display movies using the provided CSS styles
-    display_films(top_movies)
+    # Section Header
+    st.header(f"Top 10 Most Rated Films ({view_option}) 🍿")
     
-    # To use the smaller card style for a different layout:
-    # display_films_in_rows(top_movies)
+    # Displaying the films
+    st.markdown('<div class="movies-container">', unsafe_allow_html=True)
+    if top_movies.empty:
+        st.write(f"No top rated films for the selected period ({view_option}).")
+    else:
+        display_films_in_rows(top_movies)
+    st.markdown('</div>', unsafe_allow_html=True)
 #-------------------------------------
 
 
