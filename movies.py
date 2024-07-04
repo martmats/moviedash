@@ -264,7 +264,7 @@ if st.session_state.menu == "Trendy Films":
     
 # Weekly or Monthly Hotpicks Section
 
-st.markdown("""
+    st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
         <h2>Pick Your Popcorn Flicks 🎥</h2>
         <p>Select between this week's and this month's must-watch movies!</p>
@@ -272,7 +272,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
     
     # Selection box for week or month
-    selection = st.selectbox("", ["This Week", "This Month"])
+    selection = st.selectbox("Select time frame", ["This Week", "This Month"])
     
     # Close the div
     st.markdown("""
@@ -295,8 +295,7 @@ st.markdown("""
         trendy_films = trendy_films.sort_values(by=['vote_count'], ascending=[False])
         display_films_in_rows(trendy_films)
     
-# Interesting Facts section
-
+    # Interesting Facts section
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
         <h2>Popcorn Fun Fact 💡</h2>
@@ -314,7 +313,7 @@ st.markdown("""
     trendy_films_week = get_trendy_films_week()
     trendy_films_month = get_trendy_films_month()
     
-    if not trendy_films_week.empty and not trendy_films_month.empty:
+    if trendy_films_week is not None and not trendy_films_week.empty and trendy_films_month is not None and not trendy_films_month.empty:
         col1, col2 = st.columns(2)
     
         with col1:
