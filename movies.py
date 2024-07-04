@@ -270,7 +270,7 @@ if st.session_state.menu == "Trendy Films":
 
 
 #-----------------------------------try to put in boxes the weekly section------------------------------
-today_date = pd.to_datetime('today').strftime('%Y-%m-%d')
+    today_date = pd.to_datetime('today').strftime('%Y-%m-%d')
 # Weekly Hotpicks Section
 
     st.markdown("""
