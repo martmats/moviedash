@@ -287,28 +287,28 @@ today_date = pd.to_datetime('today').strftime('%Y-%m-%d')
     </div>
     """, unsafe_allow_html=True)
 
-# Filter selection
-period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
-
-# Get the trendy films based on the selected period
-top_trendy_films = get_trendy_films(period)
-
-# Display the trendy films as cards
-st.markdown('<div class="movies-container">', unsafe_allow_html=True)
-
-for index, row in top_trendy_films.iterrows():
-    st.markdown(f"""
-    <div class="movie-card">
-        <img src="{row['poster_url']}" alt="{row['title']} poster">
-        <div class="movie-info">
-            <h4>{row['title']}</h4>
-            <p>Release Date: {row['release_date'].strftime('%Y-%m-%d')}</p>
-            <p class="rating">{row['vote_count']}</p>
+    # Filter selection
+    period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
+    
+    # Get the trendy films based on the selected period
+    top_trendy_films = get_trendy_films(period)
+    
+    # Display the trendy films as cards
+    st.markdown('<div class="movies-container">', unsafe_allow_html=True)
+    
+    for index, row in top_trendy_films.iterrows():
+        st.markdown(f"""
+        <div class="movie-card">
+            <img src="{row['poster_url']}" alt="{row['title']} poster">
+            <div class="movie-info">
+                <h4>{row['title']}</h4>
+                <p>Release Date: {row['release_date'].strftime('%Y-%m-%d')}</p>
+                <p class="rating">{row['vote_count']}</p>
+            </div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.markdown('</div>', unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
     
 #-------------------------------------------------------------------------------------------    
 
