@@ -310,7 +310,13 @@ if st.session_state.menu == "Trendy Films":
     """, unsafe_allow_html=True)
     #--------------------------------------------------------------------------------------------------------------------------------
     # Create a radio button for the user to select between Week and Month
-    selection = st.radio("Select time frame", ("Week", "Month"))
+    
+
+    st.markdown("""
+    <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
+    <h2>selection = st.radio("Select time frame", ("Week", "Month"))</h2>
+    <div class="movies-container">
+    """, unsafe_allow_html=True)
     
     # Display the appropriate section based on user selection
     if selection == "Week":
