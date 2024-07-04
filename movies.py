@@ -285,8 +285,28 @@ if st.session_state.menu == "Trendy Films":
         </div>
     </div>
     """, unsafe_allow_html=True)
+# Monthly hoticks section get_trendy_films_month
+    st.markdown("""
+    <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
+        <h2>This Months's Must-Watch Popcorn Flicks 🎥</h2>
+        <p>Catch the latest and greatest films hitting your screens this week!</p>
+        <div class="movies-container">
+    """, unsafe_allow_html=True)
 
-    
+    # Fetch and display the trendy films for the week
+    trendy_films_month = get_trendy_films_month()
+    if trendy_films_month.empty:
+        st.write("No trendy films for this week.")
+    else:
+        # Sort films by vote count in descending order and select top 10
+        trendy_films_month = trendy_films_month.sort_values(by=['vote_count'], ascending=[False])
+        display_films_in_rows(trendy_films_month)
+
+    # Close the div
+    st.markdown("""
+        </div>
+    </div>
+    """, unsafe_allow_html=True)    
 # Interesting Facts section
 
     st.markdown("""
