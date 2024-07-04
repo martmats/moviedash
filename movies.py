@@ -277,7 +277,7 @@ if st.session_state.menu == "Trendy Films":
         <p>Catch the latest and greatest films hitting your screens this week!</p>
         <div class="movies-container">
     """, unsafe_allow_html=True)
-    
+    st.markdown('<div class="movies-container">', unsafe_allow_html=True)   
     # Filter selection
     period = st.selectbox("Select the period to view trendy films:", ['week', 'month'])
     
