@@ -282,7 +282,7 @@ if st.session_state.menu == "Trendy Films":
     
     # Fetch and display the trendy films based on user selection
     if selection == "This Week":
-        st.markdown("<h2>This Week's Must-Watch Popcorn Flicks 🎥</h2>", unsafe_allow_html=True)
+        st.markdown("<h2>This Week's Must-Watch Popcorn Flicks 🍿</h2>", unsafe_allow_html=True)
         trendy_films = get_trendy_films_week()
     else:
         st.markdown("<h2>This Month's Must-Watch Popcorn Flicks 🍿</h2>", unsafe_allow_html=True)
