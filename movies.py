@@ -297,85 +297,85 @@ st.markdown("""
     
 # Interesting Facts section
 
-st.markdown("""
-<div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
-    <h2>Popcorn Fun Fact 💡</h2>
-    <p>Explore genres distribution in this week's and this month's must-watch movies.</p>
-    <div class="movies-container">
-""", unsafe_allow_html=True)
-
-# Close the div
-st.markdown("""
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-# Fetch the data for the genre distribution
-trendy_films_week = get_trendy_films_week()
-trendy_films_month = get_trendy_films_month()
-
-if not trendy_films_week.empty and not trendy_films_month.empty:
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.markdown("""
-        <div style="background-color: #FFF478; padding: 20px; border-radius: 10px;">
-        <h2>Popping This Week</h2>
-        """, unsafe_allow_html=True)
-        
-        # Create a list of all genres from the films
-        genres_list_week = []
-        for genres in trendy_films_week['genres']:
-            if isinstance(genres, list):
-                genres_list_week.extend(genres)
-            elif isinstance(genres, str):
-                genres_list_week.extend(genres.split(', '))
-        
-        # Create a DataFrame for genres
-        genres_df_week = pd.DataFrame(genres_list_week, columns=['genre'])
-        genre_counts_week = genres_df_week['genre'].value_counts().reset_index()
-        genre_counts_week.columns = ['genre', 'count']
-        
-        # Create a pie chart with percentage and genre type
-        fig_week = px.pie(genre_counts_week, names='genre', values='count', title='Genre Distribution This Week',
-                     labels={'count': 'Count', 'genre': 'Genre'},
-                     hole=0.3)
-        fig_week.update_traces(textposition='inside', textinfo='percent+label')
-        st.plotly_chart(fig_week)
-        st.markdown("""
-                </div>
-                """, unsafe_allow_html=True)
+    st.markdown("""
+    <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
+        <h2>Popcorn Fun Fact 💡</h2>
+        <p>Explore genres distribution in this week's and this month's must-watch movies.</p>
+        <div class="movies-container">
+    """, unsafe_allow_html=True)
     
-    with col2:
-        st.markdown("""            
-        <div style="background-color: #FFF478; padding: 20px; border-radius: 10px;">
-        <h2>Sizzling This Month</h2>
-        """, unsafe_allow_html=True)
+    # Close the div
+    st.markdown("""
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Fetch the data for the genre distribution
+    trendy_films_week = get_trendy_films_week()
+    trendy_films_month = get_trendy_films_month()
+    
+    if not trendy_films_week.empty and not trendy_films_month.empty:
+        col1, col2 = st.columns(2)
+    
+        with col1:
+            st.markdown("""
+            <div style="background-color: #FFF478; padding: 20px; border-radius: 10px;">
+            <h2>Popping This Week</h2>
+            """, unsafe_allow_html=True)
+            
+            # Create a list of all genres from the films
+            genres_list_week = []
+            for genres in trendy_films_week['genres']:
+                if isinstance(genres, list):
+                    genres_list_week.extend(genres)
+                elif isinstance(genres, str):
+                    genres_list_week.extend(genres.split(', '))
+            
+            # Create a DataFrame for genres
+            genres_df_week = pd.DataFrame(genres_list_week, columns=['genre'])
+            genre_counts_week = genres_df_week['genre'].value_counts().reset_index()
+            genre_counts_week.columns = ['genre', 'count']
+            
+            # Create a pie chart with percentage and genre type
+            fig_week = px.pie(genre_counts_week, names='genre', values='count', title='Genre Distribution This Week',
+                         labels={'count': 'Count', 'genre': 'Genre'},
+                         hole=0.3)
+            fig_week.update_traces(textposition='inside', textinfo='percent+label')
+            st.plotly_chart(fig_week)
+            st.markdown("""
+                    </div>
+                    """, unsafe_allow_html=True)
         
-        # Create a list of all genres from the films
-        genres_list_month = []
-        for genres in trendy_films_month['genres']:
-            if isinstance(genres, list):
-                genres_list_month.extend(genres)
-            elif isinstance(genres, str):
-                genres_list_month.extend(genres.split(', '))
-        
-        # Create a DataFrame for genres
-        genres_df_month = pd.DataFrame(genres_list_month, columns=['genre'])
-        genre_counts_month = genres_df_month['genre'].value_counts().reset_index()
-        genre_counts_month.columns = ['genre', 'count']
-        
-        # Create a pie chart with percentage and genre type
-        fig_month = px.pie(genre_counts_month, names='genre', values='count', title='Genre Distribution This Month',
-                     labels={'count': 'Count', 'genre': 'Genre'},
-                     hole=0.3)
-        fig_month.update_traces(textposition='inside', textinfo='percent+label')
-        st.plotly_chart(fig_month)
-        st.markdown("""
-                </div>
-                """, unsafe_allow_html=True)
-else:
-    st.write("No trendy films data available for this week or this month.")
+        with col2:
+            st.markdown("""            
+            <div style="background-color: #FFF478; padding: 20px; border-radius: 10px;">
+            <h2>Sizzling This Month</h2>
+            """, unsafe_allow_html=True)
+            
+            # Create a list of all genres from the films
+            genres_list_month = []
+            for genres in trendy_films_month['genres']:
+                if isinstance(genres, list):
+                    genres_list_month.extend(genres)
+                elif isinstance(genres, str):
+                    genres_list_month.extend(genres.split(', '))
+            
+            # Create a DataFrame for genres
+            genres_df_month = pd.DataFrame(genres_list_month, columns=['genre'])
+            genre_counts_month = genres_df_month['genre'].value_counts().reset_index()
+            genre_counts_month.columns = ['genre', 'count']
+            
+            # Create a pie chart with percentage and genre type
+            fig_month = px.pie(genre_counts_month, names='genre', values='count', title='Genre Distribution This Month',
+                         labels={'count': 'Count', 'genre': 'Genre'},
+                         hole=0.3)
+            fig_month.update_traces(textposition='inside', textinfo='percent+label')
+            st.plotly_chart(fig_month)
+            st.markdown("""
+                    </div>
+                    """, unsafe_allow_html=True)
+    else:
+        st.write("No trendy films data available for this week or this month.")
 
 #-------------------  STREAMING OPTIONS SECTION -------------------------------
 
