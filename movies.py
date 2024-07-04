@@ -131,7 +131,6 @@ def get_trendy_films(period='week'):
     
     return top_trendy_films
 
-
 # Function to format genres
 def format_genres(genres):
     if isinstance(genres, list):
@@ -267,6 +266,9 @@ if st.session_state.menu == "Trendy Films":
         display_films_in_rows(trendy_films_today)
 
     st.markdown('</div>', unsafe_allow_html=True)
+
+
+
 #-----------------------------------try to put in boxes the weekly section------------------------------
     st.header("Weekly and monthly's Popping Hot Picks 🍿")
     st.markdown(f"Discover the top movies released Today (<strong>{today_date}</strong>), freshly popped just for you!", unsafe_allow_html=True)
