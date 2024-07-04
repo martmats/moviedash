@@ -288,8 +288,8 @@ if st.session_state.menu == "Trendy Films":
 # Monthly hoticks section get_trendy_films_month
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
-        <h2>This Months's Must-Watch Popcorn Flicks 🎥</h2>
-        <p>Catch the latest and greatest films hitting your screens this week!</p>
+        <h2>This Month's Popcorn Picks: Must-Watch Movies 🍿</h2>
+        <p>Catch the latest and greatest films hitting your screens this month!</p>
         <div class="movies-container">
     """, unsafe_allow_html=True)
 
