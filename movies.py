@@ -299,36 +299,36 @@ if st.session_state.menu == "Trendy Films":
         st.write("No movies released in the last month.")
     
 #-------------------------------------------------------------------------------------------    
-# Streamlit app
-st.title("Top Rated Films")
-
-# Sidebar for user selection
-view_option = st.sidebar.selectbox("Select Period", ["Weekly", "Monthly"])
-
-# Function to get the most rated movies of the week or month
-def get_top_rated_movies(period='weekly'):
-    today = pd.to_datetime('today').normalize()
-    if period == 'weekly':
-        last_period = today - timedelta(days=7)
+    # Streamlit app
+    st.title("Top Rated Films")
+    
+    # Sidebar for user selection
+    view_option = st.sidebar.selectbox("Select Period", ["Weekly", "Monthly"])
+    
+    # Function to get the most rated movies of the week or month
+    def get_top_rated_movies(period='weekly'):
+        today = pd.to_datetime('today').normalize()
+        if period == 'weekly':
+            last_period = today - timedelta(days=7)
+        else:
+            last_period = today - timedelta(days=30)
+    
+        movies_df['release_date'] = pd.to_datetime(movies_df['release_date']).dt.normalize()
+        period_movies = movies_df[(movies_df['release_date'] > last_period) & (movies_df['release_date'] <= today)]
+        top_rated_movies = period_movies.sort_values(by='vote_count', ascending=False).head(10)
+        return top_rated_movies
+    
+    # Display top rated films based on user selection
+    if view_option == "Weekly":
+        top_movies = get_top_rated_movies('weekly')
     else:
-        last_period = today - timedelta(days=30)
-
-    movies_df['release_date'] = pd.to_datetime(movies_df['release_date']).dt.normalize()
-    period_movies = movies_df[(movies_df['release_date'] > last_period) & (movies_df['release_date'] <= today)]
-    top_rated_movies = period_movies.sort_values(by='vote_count', ascending=False).head(10)
-    return top_rated_movies
-
-# Display top rated films based on user selection
-if view_option == "Weekly":
-    top_movies = get_top_rated_movies('weekly')
-else:
-    top_movies = get_top_rated_movies('monthly')
-
-# Display movies using the provided CSS styles
-display_films(top_movies)
-
-# To use the smaller card style for a different layout:
-# display_films_in_rows(top_movies)
+        top_movies = get_top_rated_movies('monthly')
+    
+    # Display movies using the provided CSS styles
+    display_films(top_movies)
+    
+    # To use the smaller card style for a different layout:
+    # display_films_in_rows(top_movies)
 #-------------------------------------
 
 
