@@ -7,11 +7,11 @@ import plotly.graph_objects as go
 from PIL import Image
 import math
 
-#---------PAGE CONFIGURATION HAS TO BE AT THE BEGINNING--------------------------------------------------------------
+#---------PAGE CONFIGURATION HAS TO BE AT THE BEGINNING----------------------------------
 # Set page configuration to use wide layout
 st.set_page_config(layout="wide")
 
-#---------------LOAD DATA FROM THE DATABASE-----------------------------
+#---------------CONNECT AND LOAD DATA FROM THE DATABASE-----------------------------------
 
 # Load environment variables from Streamlit secrets
 db_username = st.secrets["DB_USERNAME"]
@@ -62,6 +62,7 @@ local_css("style.css")
 
 #------------FUNCTIONS FOR EACH PAGE--------------------------------------------
 
+#------------Trendy Pick Page Functions--------------
 # Get the HotPick for Today
 def get_trendy_films_today():
     today = pd.to_datetime('today').normalize()
@@ -75,17 +76,6 @@ def get_trendy_films_today():
     
     return trendy_films
 
-# Function to format the release date in Fun Fact Page
-def format_release_date(date_string):
-    return date_string[:10] if date_string else "N/A"
-
-
-# Current Year for the Section Best films per Year
-current_year = datetime.now().year
-
-# Get today's date for the trendy Section
-today_date = datetime.now().strftime('%A %d-%m-%Y')
-
 # Function to format the date in Trendy Section
 def format_date(date_str):
     if date_str:
@@ -98,10 +88,6 @@ def format_date(date_str):
                 return date_str  # Return the original string if it doesn't match expected formats
         return date_obj.strftime('%d-%m-%Y')
     return ''
-    
-# Function to format rating
-def format_rating(rating):
-    return f"{rating:.1f} stars" if rating else "N/A"
 
 # Function to get trendy films for the week
 def get_trendy_films_week():
@@ -125,40 +111,8 @@ def get_trendy_films_month():
     trendy_films = movies_df[(movies_df['release_date'] >= start_of_month) & (movies_df['release_date'] <= end_of_month)]
     return trendy_films
 
-# Function to format genres
-def format_genres(genres):
-    if isinstance(genres, list):
-        return ", ".join(genres)
-    return genres
-
-# Function to format providers
-def format_providers(providers):
-    if not providers:
-        return "Now Showing"
-    if isinstance(providers, list):
-        return ", ".join(providers)
-    return providers
-
-
-# Function to display films in styled HTML For Filter Section
-def display_films(films, card_class="movie-card"):
-    for i in range(len(films)):
-        film = films.iloc[i]
-        st.markdown(f"""
-        <div class="{card_class}">
-            <img src="{film['poster_image']}" alt="{film['title']}">
-            <div class="movie-info">
-                <h4>{film['title']}</h4>
-                <p>{format_providers(film['providers'])}</p>
-                <p class="rating">{format_rating(film['vote_average'])}</p>
-                <details>
-                    <summary>More info</summary>
-                    <p><strong>Overview:</strong> {film['overview']}</p>
-                    <p><strong>Genres:</strong> {format_genres(film['genres'])}</p>
-                </details>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+# Get today's date for the trendy Section
+today_date = datetime.now().strftime('%A %d-%m-%Y')
 
 # Function to display films in rows for Trendy Section
 def display_films_in_rows(films, card_class="movie-card-small"):
@@ -182,8 +136,53 @@ def display_films_in_rows(films, card_class="movie-card-small"):
             </div>
             """, unsafe_allow_html=True)
 
+#------------Streaming Filter Page Functions--------------
+# Function to display films in styled HTML For Filter Section
+def display_films(films, card_class="movie-card"):
+    for i in range(len(films)):
+        film = films.iloc[i]
+        st.markdown(f"""
+        <div class="{card_class}">
+            <img src="{film['poster_image']}" alt="{film['title']}">
+            <div class="movie-info">
+                <h4>{film['title']}</h4>
+                <p>{format_providers(film['providers'])}</p>
+                <p class="rating">{format_rating(film['vote_average'])}</p>
+                <details>
+                    <summary>More info</summary>
+                    <p><strong>Overview:</strong> {film['overview']}</p>
+                    <p><strong>Genres:</strong> {format_genres(film['genres'])}</p>
+                </details>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+# Current Year for the Section Best films per Year
+current_year = datetime.now().year
 
-#---------SIDEBAR CONTENT-----------------------------------------------------------------
+#------------Common Functions--------------
+# Function to format the release date in Fun Fact Section
+def format_release_date(date_string):
+    return date_string[:10] if date_string else "N/A"
+
+# Function to format rating
+def format_rating(rating):
+    return f"{rating:.1f} stars" if rating else "N/A"
+
+# Function to format genres
+def format_genres(genres):
+    if isinstance(genres, list):
+        return ", ".join(genres)
+    return genres
+
+# Function to format providers
+def format_providers(providers):
+    if not providers:
+        return "Now Showing"
+    if isinstance(providers, list):
+        return ", ".join(providers)
+    return providers
+
+#---------SIDEBAR CREATION-----------------------------------------------------------------
 # Sidebar Colour
 st.markdown("""
     <style>
@@ -197,7 +196,6 @@ st.markdown("""
 logo_path = "logo_moviedash.png"
 # Load the logo image
 logo_image = st.sidebar.image(logo_path, width=300)  # Adjust width and height as needed
-
 
 # Sidebar Menu Initialisation
 st.sidebar.markdown('<h2>Grab your popcorn and explore our latest hot picks, streaming options, and movie trivia!</h2>', unsafe_allow_html=True)
@@ -215,8 +213,6 @@ menu_options = {
 menu = st.sidebar.radio("", list(menu_options.values()))
 st.session_state.menu = [key for key, value in menu_options.items() if value == menu][0]
 
-#---------SIDEBAR FOOTER------------------------------------------------
-
 # Sidebar footer
 st.sidebar.markdown('''
 ---
@@ -225,7 +221,7 @@ Created with ❤️ by [Marta Matias](https://digitalfutures.com).
 Data provided by Justwatch and TMDB
 ''')
 
-#----------------------TRENDY SECTION------------------------------------------
+#----------------------1)TRENDY SECTION PAGE ------------------------------------------
 # Display the selected menu content
 # Hero with Welcome message
 
@@ -246,7 +242,7 @@ if st.session_state.menu == "Trendy Films":
     </div>
     """, unsafe_allow_html=True)
 
-# Today's Hot Pick Section
+# Today's Hot Pick Section- Films streamed today
 
     st.header("Today's Popping Hot Picks 🍿")
     st.markdown(f"Discover the top movies released Today (<strong>{today_date}</strong>), freshly popped just for you!", unsafe_allow_html=True)
@@ -262,7 +258,7 @@ if st.session_state.menu == "Trendy Films":
     st.markdown('</div>', unsafe_allow_html=True)
     
     
-# Weekly or Monthly Hotpicks Section
+# Weekly or Monthly Hotpicks Section - Select
 
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
@@ -280,7 +276,7 @@ if st.session_state.menu == "Trendy Films":
     </div>
     """, unsafe_allow_html=True)
     
-    # Fetch and display the trendy films based on user selection
+    # Fetch and display the weekly/monthly trendy films based on user selection
     if selection == "This Week":
         st.markdown("<h2>This Week's Must-Watch Popcorn Flicks 🍿</h2>", unsafe_allow_html=True)
         trendy_films = get_trendy_films_week()
@@ -312,7 +308,8 @@ if st.session_state.menu == "Trendy Films":
     # Fetch the data for the genre distribution
     trendy_films_week = get_trendy_films_week()
     trendy_films_month = get_trendy_films_month()
-    
+
+    #Display results
     if trendy_films_week is not None and not trendy_films_week.empty and trendy_films_month is not None and not trendy_films_month.empty:
         col1, col2 = st.columns(2)
     
@@ -358,7 +355,8 @@ if st.session_state.menu == "Trendy Films":
                     genres_list_month.extend(genres)
                 elif isinstance(genres, str):
                     genres_list_month.extend(genres.split(', '))
-            
+
+#Fun Fact Section-----------------------------------------------------
             # Create a DataFrame for genres
             genres_df_month = pd.DataFrame(genres_list_month, columns=['genre'])
             genre_counts_month = genres_df_month['genre'].value_counts().reset_index()
@@ -376,12 +374,12 @@ if st.session_state.menu == "Trendy Films":
     else:
         st.write("No trendy films data available for this week or this month.")
 
-#-------------------  STREAMING OPTIONS SECTION -------------------------------
+#------------------- 2)STREAMING FILTER PAGE --------------------------------------
 
 # Ensure genres column has no NaN values
 movies_df['genres'] = movies_df['genres'].apply(lambda x: x if isinstance(x, list) else [])
 
-# "Streaming Options" section
+# "Streaming Options" Sidebar Section
 if st.session_state.menu == "Streaming Options":
     st.title("Find Your Perfect Film 🎬")
     st.write("Filter by Provider, Genre, Year, and Popularity to discover the best movies for you!")
@@ -424,7 +422,7 @@ if st.session_state.menu == "Streaming Options":
             format="%d",
             help="Slide to choose between less popular to extremely popular movies based on vote count."
         )
-    
+    # Filter results
     with col2:
         # Filter the dataframe based on the search query
         if search_query:
@@ -466,6 +464,7 @@ if st.session_state.menu == "Streaming Options":
                     </div>
                     """, unsafe_allow_html=True)
 
+    # Bottom Section 
     # Headline for Fun Fact Filter Section
     st.markdown("""
     <div style="background-color: #cacef4; padding: 20px; border-radius: 10px;">
@@ -549,8 +548,8 @@ if st.session_state.menu == "Streaming Options":
         st.plotly_chart(fig_bar_popularity)
 
 
-# -------------INTERESTING FACTS SECTION----------------------------------------------------------
-
+# -------------3) INTERESTING FACTS SECTION PAGE----------------------------------------------------------
+# Headlines of the page
 elif st.session_state.menu == "Interesting facts":
     st.title("Film Release Trends Over Time")
     st.header("Track the popping number of films released each year from 2010 to the present.")
@@ -625,7 +624,7 @@ elif st.session_state.menu == "Interesting facts":
     st.plotly_chart(fig_bar)
 
     
-# GRAPHIC 3: Popular Film per Year
+# GRAPHIC 3: Popular Film per Year (showed in cards format)
   
     # Most Popular Film of Each Year
     st.subheader("Most Popular Film of Each Year")
