@@ -1,4 +1,4 @@
-
+/* Sidebar Menu */
 .sidebar-menu {
     padding: 0 20px;
 }
@@ -130,6 +130,7 @@
     margin-top: 10px;
 }
 
+/* Welcome banner - Hero Section */
 .hero-section {
     background-color: #1A237E;
     padding: 50px 20px;
